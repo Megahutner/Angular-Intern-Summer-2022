@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
+import notify from 'devextreme/ui/notify';
 
 
 
@@ -12,6 +13,7 @@ export class LoginComponent implements OnInit {
     form: FormGroup;
     loading = false;
     submitted = false;
+    hide = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,17 +45,32 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.login(this.f['username'].value, this.f['password'].value)
+        this.accountService.login(this.f['username'].value, btoa(this.f['password'].value))
             .pipe(first())
             .subscribe({
                 next: () => {
                     // get return url from query parameters or default to home page
+                    
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
+                    
                 },
                 error: error => {
-                    this.alertService.error(error);
-                    this.loading = false;
+                    notify(
+                        {
+                            message: "Username or password is incorrect", 
+                            width: 230,
+                            type:'error',
+                            position: {
+                                at: "bottom",
+                                my: "bottom",
+                                of: "#container"
+                            }
+                        }, 
+                        
+                    );
+                    this.loading=false;
+                
                 }
             });
     }

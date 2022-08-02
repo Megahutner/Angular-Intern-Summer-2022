@@ -11,16 +11,16 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+    public token: string;
     url:string;
+    
     httpOptions = {
+        
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Cache-Control': 'no-cache',
           'X-PINGOTHER': 'pingpong',
-          'Server': 'Microsoft-IIS/10.0',
-          'X-Powered-By': 'PHP/8.0.0',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Key, Authorization',
+     
         })
       };
     private userSubject: BehaviorSubject<User>;
@@ -35,23 +35,52 @@ export class UserService {
         this.user = this.userSubject.asObservable();
     }
 
+    
+  GetHeader(): any{
+    this.token = localStorage.getItem("user_token");
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        'X-PINGOTHER': 'pingpong',
+        'user_token': this.token,
+      })
+    };
+    return httpOptions;
+  }
     public get userValue(): User {
         return this.userSubject.value;
     }
 
     login(username:string, password:string) {
-        return this.http.post<User>(this.url +'/api/auth/user-login', { Username: username, Password: password },this.httpOptions)
+        return this.http.post<User>(this.url +'/api/auth/user-login', { Username: username, Password: password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+                console.log(user)
+                console.log(user.code)
+                console.log(localStorage.length)
+                console.log(user.data.staff.fullName)
+                localStorage.setItem("usernameMqtt",user.data.staff.mqtt_client_id);
+                localStorage.setItem("passwordMqtt",user.data.staff.mqtt_password);
+                let token = user.data.staff.user_token; // return true or false
+                if (token) {
+                  this.token = token;
+               
+                  localStorage.setItem('currentUser', JSON.stringify(user.data.staff));
+                  localStorage.setItem('user_token', this.token);
+
+            }
+            this.userSubject.next(user);
+        console.log(this.token)}));
     }
 
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');
+        localStorage.removeItem('');
+        localStorage.removeItem('');
+
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
     }

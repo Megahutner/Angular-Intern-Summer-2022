@@ -1,13 +1,10 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-    </div>
-</nav>
-
+<ul *ngIf="user">
+<li><a [routerLink]="['/']"><mat-icon>home</mat-icon></a></li>
+    <li style="float:right"><a (click)="logout()"><mat-icon>logout</mat-icon></a></li>
+    <li style="float:right"><a>{{this.username}}</a></li>
+  </ul>
 <!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
-    <alert></alert>
+<body class="dx-viewport">
     <router-outlet></router-outlet>
-</div>
+</body>
+   

@@ -1,0 +1,18 @@
+{
+    "serverApi":"http://vendingmachine-api.dotnet.speranzainc.net/",
+    "serverImage":"http://vendingmachine-api.dotnet.speranzainc.net/Images/",
+    "mqttConfig": {
+        "HostMqtt": "52.221.235.3",
+        "protocolMqtt": "ws",
+        "portMqtt": "8888",
+        "pathMqtt": "/mqtt"
+    },
+    "barcode": {
+        "distance":"100px",
+        "width":1,
+        "height":40
+    },
+    "qrcode": {
+        "width":50
+    }
+}

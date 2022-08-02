@@ -1,7 +1,82 @@
-<div class="p-4">
-    <div class="container">
-        <h1>Hi {{user.firstName}}!</h1>
-        <p>You're logged in with Angular 10!!</p>
-        <p><a routerLink="/users">Manage Users</a></p>
-    </div>
-</div>
+<div class="row">
+  <div class="column">
+    <h4>Terminal Info</h4>
+<dx-data-grid 
+          #grid 
+          id="grid-container"
+          [dataSource]="terminals"
+          keyExpr="Id"
+          [showBorders]="true"
+          [selectedRowKeys] =[]
+          [columnAutoWidth]="true"
+          style="width:100%"
+          [focusedRowEnabled]="true"
+          [showColumnLines]="true"
+          >
+          <dxo-filter-row
+    [visible]="showFilterRow"
+    [applyFilter]="currentFilter"
+    ></dxo-filter-row>
+    <dxo-header-filter [visible]="showHeaderFilter"></dxo-header-filter>
+    <dxo-search-panel location ="before" [visible]="true" [width]="240" placeholder="Search"></dxo-search-panel>
+  
+    <dxo-selection mode="single"></dxo-selection>
+          
+          <dxi-column alignment="left" dataField ="Id" caption = "ID">
+          
+        </dxi-column>
+        <dxi-column alignment="left" dataField ="EzyCode" caption = "Locker ID">
+          
+        </dxi-column>
+        <dxi-column alignment="left" dataField ="Name" caption = "Serial Name">
+          
+        </dxi-column>
+          
+    
+      
+          </dx-data-grid>
+        </div>
+        <div class="column">
+          <h4>Transaction Info</h4>
+          <dx-data-grid 
+          #grid 
+          id="grid-container"
+          [dataSource]="transactions"
+          keyExpr="Id"
+          [showBorders]="true"
+          [selectedRowKeys] =[]
+          [columnAutoWidth]="true"
+          style="width:100%"
+          [focusedRowEnabled]="true"
+          [showColumnLines]="true"
+          >
+          <dxo-filter-row
+    [visible]="showFilterRow"
+    [applyFilter]="currentFilter"
+    ></dxo-filter-row>
+    <dxo-header-filter [visible]="showHeaderFilter"></dxo-header-filter>
+    <dxo-search-panel location ="before" [visible]="true" [width]="240" placeholder="Search"></dxo-search-panel>
+  
+    <!--<dxo-selection mode="single"></dxo-selection>-->
+          
+          <dxi-column alignment="left" dataField ="CreateDate" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss " caption = "Create Date">
+          
+          </dxi-column><dxi-column alignment="left" dataField ="Id" caption = "ID">
+          
+        </dxi-column>
+        <dxi-column alignment="left" dataField ="TranNo" caption = "Locker ID">
+          
+        </dxi-column>
+        <dxi-column alignment="left" dataField ="TranDateTime" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss " caption = "Tran.Date">
+          
+        </dxi-column>
+        <dxi-column alignment="left" dataField ="EndDate" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss " caption = "End Date">
+          
+        </dxi-column>
+       
+          
+    
+      
+          </dx-data-grid>
+        </div>
+      </div>

@@ -5,6 +5,17 @@ export class User {
   firstName: string;
   lastName: string;
   token: string;
+  code: number;
+  data: {
+    staff:{
+      username: string;
+      fullName: string;
+      mobile_number:string;
+      user_token: string;
+      mqtt_client_id: string;
+      mqtt_password: string;
+    }
+  }
 }
 // export const users = [
 //     {
