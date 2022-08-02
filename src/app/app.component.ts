@@ -12,7 +12,9 @@ export class AppComponent {
     id: string;
     constructor(private accountService: UserService) {
         this.accountService.user.subscribe(x => this.user = x);
-       
+        if (this.user !== null){
+            this.username=this.user.data.staff.username
+        }
     }
     
 //     myTime!: any;

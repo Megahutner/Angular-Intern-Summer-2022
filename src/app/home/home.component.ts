@@ -32,11 +32,11 @@ export class HomeComponent {
         this.user = this.accountService.userValue;
      this.terS.getTerminals().then(ter=>{
             this.terminals = ter.data.terminal;
-            console.log(this.terminals)
+        //    console.log(this.terminals)
           });
           this.terS.getTransactions().then(trans=>{
             this.transactions = trans.data.transaction;
-            console.log(this.transactions)
+        //    console.log(this.transactions)
           });
           
 

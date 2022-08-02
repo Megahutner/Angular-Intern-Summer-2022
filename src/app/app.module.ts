@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -72,4 +73,3 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     bootstrap: [AppComponent]
 })
 export class AppModule { };
-platformBrowserDynamic().bootstrapModule(AppModule);

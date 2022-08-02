@@ -57,10 +57,6 @@ export class UserService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
-                console.log(user)
-                console.log(user.code)
-                console.log(localStorage.length)
-                console.log(user.data.staff.fullName)
                 localStorage.setItem("usernameMqtt",user.data.staff.mqtt_client_id);
                 localStorage.setItem("passwordMqtt",user.data.staff.mqtt_password);
                 let token = user.data.staff.user_token; // return true or false
@@ -72,14 +68,12 @@ export class UserService {
 
             }
             this.userSubject.next(user);
-        console.log(this.token)}));
+      }));
     }
 
     logout() {
         // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
-        localStorage.removeItem('');
-        localStorage.removeItem('');
+      localStorage.clear();
 
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
