@@ -1,0 +1,34 @@
+<nav aria-label="pagination">
+    <ul class="ul1" style="float:left" >
+        <li *ngFor="let size of pagesize;">
+            <a class="a1"
+              [attr.aria-current]="size === perPage ? 'size' : null"
+              
+              [class.current]="size === perPage"
+              (click)="switch(size)"
+              (keyup.enter)="switch(size)"
+              [attr.disabled]="'...'"
+              >
+      {{ size }}</a
+            >
+          </li></ul>
+    <ul class="ul1" style="float:right" >
+     
+      <li *ngFor="let page of pages;">
+        <a class="a1"
+          [attr.aria-current]="page === current ? 'page' : null"
+          [attr.aria-label]="
+            page === current ? 'Current Page, Page ' + page : 'Go to Page ' + page
+          "
+          [class.current]="page === current"
+          tabindex="0"
+          (click)="onGoTo(page)"
+          (keyup.enter)="onGoTo(page)"
+          [attr.disabled]="'...'"
+          >
+  {{ page }}</a
+        >
+      </li>
+    
+    </ul>
+  </nav>

@@ -1,10 +1,56 @@
-<ul *ngIf="user">
-<li><a [routerLink]="['/']"><mat-icon>home</mat-icon></a></li>
+
+<ul class="ul2" *ngIf="user">
     <li style="float:right"><a (click)="logout()"><mat-icon>logout</mat-icon></a></li>
     <li style="float:right"><a>{{this.username}}</a></li>
   </ul>
 <!-- main app container -->
-<body class="dx-viewport">
-    <router-outlet></router-outlet>
-</body>
+<div *ngIf="user" class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%">
+  <h3 class="w3-bar-item">Dashboard</h3>
+  <p [routerLink]="['/']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">home</mat-icon>       Home</p>
+  <p [routerLink]="['terminal']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">monitor</mat-icon>      Terminal Info</p>
+    <p [routerLink]="['transaction']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">attach_money</mat-icon>      Transaction Info</p>  
+</div>
+
+<!-- Page Content -->
+<div style="margin-left:11%"><router-outlet></router-outlet></div>
+
+
+
+    
    
+
+<!--<mat-sidenav-container>
+
+  <mat-sidenav #sidenav mode="side" opened class="mat-elevation-z8">
+      <button mat-button class="menu-button">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+      </button>
+      <button mat-button class="menu-button">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+      </button>
+      <button routerLink='list'mat-button class="menu-button">
+          <mat-icon>list</mat-icon>
+          <span>List</span>
+      </button>
+  
+      <mat-divider></mat-divider>
+  
+      <button mat-button class="menu-button">
+          <mat-icon>help</mat-icon>
+          <span>Help</span>
+      </button>
+  
+  </mat-sidenav>
+    <mat-sidenav-content >
+  <body class="dx-viewport">
+      <router-outlet></router-outlet>
+  </body>
+    </mat-sidenav-content>
+     
+  
+  </mat-sidenav-container>-->
+  
+  
+  

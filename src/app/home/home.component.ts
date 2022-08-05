@@ -1,5 +1,5 @@
 import {
-    NgModule, Component, enableProdMode, ChangeDetectionStrategy,ViewChild
+    NgModule, Component, enableProdMode, ChangeDetectionStrategy,ViewChild,OnInit
   } from '@angular/core';import { User } from '../_models';
 import { TerminalService } from '../_services/terminal.service';
 import notify from  'devextreme/ui/notify'
@@ -11,6 +11,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import {
   HttpClient, HttpClientModule, HttpHeaders, HttpParams,
 } from '@angular/common/http';
+import {Router, NavigationEnd,ActivatedRoute} from '@angular/router';
+
 
 import { UserService } from '../_services/user.service';
 
@@ -18,7 +20,7 @@ import { UserService } from '../_services/user.service';
 
 
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
 
     user: User;
@@ -28,11 +30,11 @@ export class HomeComponent {
     posts: any;
     terminals: any;
     transactions: any;
-    constructor(private accountService: UserService, private terS: TerminalService ) {
+    constructor(private accountService: UserService, private terS: TerminalService ,private router: Router, private activatedRoute: ActivatedRoute) {
         this.user = this.accountService.userValue;
      this.terS.getTerminals().then(ter=>{
             this.terminals = ter.data.terminal;
-        //    console.log(this.terminals)
+            console.log(this.terminals)
           });
           this.terS.getTransactions().then(trans=>{
             this.transactions = trans.data.transaction;
@@ -41,6 +43,13 @@ export class HomeComponent {
           
 
     }
+    ngOnInit(){
+      this.refreshComponent()}
+
+
+    refreshComponent(){
+      this.router.navigate([this.router.url])
+   }
     
     
 }

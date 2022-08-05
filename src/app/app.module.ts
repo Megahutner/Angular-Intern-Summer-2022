@@ -10,7 +10,7 @@ import { MatButtonModule} from '@angular/material/button'
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-
+import { TerminalComponent } from './terminal/terminal.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule} from '@angular/material/list';
 
@@ -25,7 +25,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSidenavModule} from '@angular/material/sidenav';
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
-
+import { TransactionComponent } from './transaction/transaction.component';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
@@ -34,6 +34,9 @@ import { HomeComponent } from './home';
 import { AuthInterceptor } from './_helpers/auth-interceptor';
 import { DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { PagingComponent } from './paging/paging.component';
+import { DxResponsiveBoxModule } from 'devextreme-angular';
+import { DxTextBoxModule } from 'devextreme-angular';
 
 @NgModule({
     imports: [
@@ -55,12 +58,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     MatNativeDateModule,
     MatTooltipModule,
     MatSelectModule,
-    MatToolbarModule,MatPaginatorModule,MatSidenavModule,CommonModule
+    MatToolbarModule,MatPaginatorModule,MatSidenavModule,CommonModule,DxResponsiveBoxModule,DxTextBoxModule
     ],
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

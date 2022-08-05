@@ -1,3 +1,70 @@
+::ng-deep #grid {
+    height: 440px;
+  }
+  
+  ::ng-deep .options {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgba(233, 218, 218, 0.15);
+  }
+  
+  ::ng-deep .caption {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  ::ng-deep .option {
+    margin-bottom: 10px;
+  }
+  
+  ::ng-deep .option > span {
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+  }
+  
+  ::ng-deep .option > .dx-widget {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  ::ng-deep #requests .caption {
+    float: left;
+    padding-top: 7px;
+  }
+  
+  ::ng-deep #requests > div {
+    padding-bottom: 5px;
+  }
+  
+  ::ng-deep #requests > div::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  ::ng-deep #requests #clear {
+    float: right;
+  }
+  
+  ::ng-deep #requests ul {
+    list-style: none;
+    max-height: 100px;
+    overflow: auto;
+    margin: 0;
+  }
+  
+  ::ng-deep #requests ul li {
+    padding: 7px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  ::ng-deep #requests ul li:last-child {
+    border-bottom: none;
+  }
+
+
 html,
 body {
 	height: 100%;
@@ -22,6 +89,7 @@ body {
 }
 
 .main-wrapper {
+	margin-right: 20px;
 	height: 100%;
 }
 
@@ -35,7 +103,7 @@ body {
 	top: 0;
 	opacity: 1;
 	float: left;
-	padding: 40px 50px 40px 50px;
+	padding: 40px 40px 40px 50px;
 	width: 100%;
 	background: #fff;
 	border-radius: 10px;
@@ -44,6 +112,8 @@ body {
 	-ms-transform: scale(1);
 	z-index: 5;
 	max-width: 330px;
+	margin-right: 250px;
+	
 }
 
 .box.back {
@@ -105,29 +175,70 @@ ul {
 	position: -webkit-sticky;
   position: sticky;
   top: 0;
-  
+  z-index: 1;
+	list-style-type: none;
+	margin-top: 10px;
+	padding: 0;
+	overflow: hidden;
+	background-color: rgb(255, 253, 253);
+  }
+  .ul1 {
+	position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #333;
+	background-color: #e5e5e5;
+  }
+  .ul2 {
+	position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #000000;
   }
   
   li {
 	float: left;
   }
-  
+
   li a {
 	display: block;
-	color: white;
+	color: rgb(223, 209, 209);
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+  }
+
+  li a.a1 {
+	display: block;
+	color: rgb(27, 16, 16);
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
   }
   
+  
   li a:hover {
-	background-color: #111;
-  }
+   cursor: pointer;
+}
+  li a.current {
+	background: #cec9c9;
+color:black }
+
+
+
+
+
+
+  
 
   * {
 	box-sizing: border-box;
@@ -140,10 +251,13 @@ ul {
 	
   .column {
 	float: left;
-	width: 50%;
-	height: 50%;
+	width: 99%;
+	height: 85%;
 	padding: 5px;
-	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+
+	
   }
   
   /* Clearfix (clear floats) */
@@ -157,13 +271,22 @@ ul {
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 100%;
-	border: 1px solid #ddd;
+	border: 1px solid rgb(0, 0, 0);
   }
   
   th, td {
 	text-align: left;
-	padding: 16px;
+	
+	border: 1px  rgb(0, 0, 0);
   }
+
+
+.th1{
+	text-align: left;
+	background-color: #fff;
+	
+  }
+  
   
   tr:nth-child(even) {
 	background-color: #f2f2f2;
@@ -172,5 +295,11 @@ ul {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+  }
+  .a{
+	margin-bottom: 10px;
+  }
+  #gridContainer {
+	max-height: 1000px;
   }
   

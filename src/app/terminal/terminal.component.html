@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="column">
+      <nav aria-label="pagination">
+        <ul class="ul1" >
+            
+          <li style="float:left"><h2>Terminal Info</h2></li>
+          </ul></nav> 
+  <dx-data-grid 
+            #grid 
+            id="grid-container"
+            [dataSource]="terminalsToDisplay"
+            keyExpr="Id"
+            [showBorders]="true"
+            [selectedRowKeys] =[]
+            [columnAutoWidth]="true"
+            style="width:100%"
+            [showColumnLines]="true"
+            >
+            <dxo-scrolling rowRenderingMode ="virtual" ></dxo-scrolling>
+            <dxo-editing
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            mode="popup"
+            [useIcons]="true">
+        </dxo-editing>
+            <dxi-column type="buttons" flexPosition="left" [width]="100">
+              <dxi-button 
+                  name="save"></dxi-button>
+              <dxi-button name="edit"></dxi-button>
+              <dxi-button name="delete"></dxi-button>
+          </dxi-column>
+          <dxi-column alignment="center" [width]="170" dataField ="Id" caption = "Id">
+            
+          </dxi-column>
+          <dxi-column alignment="left" [width]="120" dataField ="EzyCode" caption = "EzyCode">
+            
+          </dxi-column>
+          <dxi-column alignment="left" [width]="170" dataField ="Name" caption = "Name">
+            
+        </dxi-column>
+        <dxi-column alignment="left" [width]="200"  dataField ="Description" caption = "Description">
+</dxi-column>
+<dxi-column alignment="left" [width]="100"  dataField ="IsOnline" caption = "Online Status">
+</dxi-column>
+<dxi-column alignment="left" [width]="100"  dataField ="Status" caption = "Status">
+</dxi-column>
+<dxi-column alignment="left" [width]="100"  dataField ="Type" caption = "Type">
+</dxi-column>
+            
+      
+        
+            </dx-data-grid>
+            <paging-component
+  [current]="current"
+  [total]="total"
+  [perPage]="perPage"
+  (goTo)="onGoTo($event)"
+  (next)="onNext($event)"
+  (previous)="onPrevious($event)"
+  (switchs)="switch($event)"
+></paging-component>
+          </div>
+          
+          <!-- <a (click)="changeFromParent()">Change from parent</a>
+          <br/>
+          <app-child [parentData]=data></app-child> -->
+        </div>
+  
+  
+  
+  
