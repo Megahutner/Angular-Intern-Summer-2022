@@ -59,6 +59,7 @@ export class TransactionComponent implements OnInit {
   //  get isCompactMode(){
   //    return this.displayMode === 'compact'
   //  }
+  dataSource: any = {};
     showX: boolean;
     user: User;
     showFilterRow: boolean;
@@ -68,7 +69,32 @@ export class TransactionComponent implements OnInit {
     terminals: any;
     transactions: any;
     totalRecords: number;
-    constructor(private accountService: UserService, private terS: TerminalService ) {
+    transactionInfo: any;
+    transLogs: any;
+    transDetails: any;
+    transImage: any;
+    payment: any;
+    statusData=[
+      {id:1, name:"Waiting"},
+      {id:2, name:"Collected"},
+      {id:3, name:"Failed"}
+    ]
+    statuspayment=[
+          {id:0, name:"Paying"},
+          {id:1, name:"Success"},
+          {id:2, name:"Failed"}
+    ]
+    PayType =[
+      {id:1,name:"ZaloPay"},
+      {id:2, name:"Momo"},
+      {id:3, name:"VNPay"}
+    ]
+
+    popupTransaction:boolean=false;
+    constructor(private accountService: UserService, private terS: TerminalService ,    private httpClient: HttpClient
+      ) {
+      
+
       this.showFilterRow = true;
 //this.showHeaderFilter = true;
        // this.user = this.accountService.userValue;
@@ -104,6 +130,11 @@ export class TransactionComponent implements OnInit {
           //   //this.transactionsToDisplay=this.paginate(this.current,this.perPage)
           //       });
 
+
+
+//this.getTransactions()
+
+
                 this.terS.getTransactions1(this.current,this.perPage).then(trans=>{
                   //       this.transactions = trans.data.transaction;
                       //  console.log(this.transactions)
@@ -114,6 +145,7 @@ export class TransactionComponent implements OnInit {
 
     }
     public onGoTo(page:number): void{
+      this.requestUrl=this.requestUrl
       this.current = page
       this.perPage=this.perPage
       this.terS.getTransactions1(this.current,this.perPage).then(trans=>{
@@ -152,6 +184,47 @@ public switch(perPage:number):void{
   onRowInserted(e:any){ //add
      
   }
+  onRowClick(e:any){
+    this.popupTransaction=true
+
+    this.terS.getTransactionDetail(e.data.Id).then(transDetail=>{
+      console.log(transDetail)
+      this.transactionInfo=transDetail.data.transaction;
+      this.transLogs=transDetail.data.transactionlogs;
+      this.transDetails=transDetail.data.transactionDetails;
+      this.transImage=transDetail.data.transactionImages;
+      this.payment=transDetail.data.payment;
+
+    })
+  }
+
+  getTransactionStatus(number:number):string{
+    if (number==1){
+      return "Prepared"
+    }
+    if (number==2){
+      return "Collecting"
+    }
+    if (number==3){
+      return "Item In Collection Box"
+    }
+    if (number==4){
+      return "Done"
+    }
+    if (number==5){
+      return "Failed"
+    }
+    if (number==6){
+      return "Ended"
+    }
+  }
+
+  // cancelTransactionPopup(){
+  //   this.popupTransaction=false;
+    
+  // }
+
+
 //   newTrans(){
 //     this.terS.getTransactions1().then(trans=>{
 //       this.transactions = trans.data.transaction;
@@ -165,7 +238,73 @@ public switch(perPage:number):void{
 //             this.transactionsToDisplay=this.paginate(this.current,this.perPage)
 //     });
 //   }
+// getTransactions(){
   
+//   function isNotEmpty(value: any): boolean {
+//     return value !== undefined && value !== null && value !== "";
+//   }
+//   let headers = this.terS.GetHeader();
+//   this.dataSource = new CustomStore({
+//     key: "id",
+//     load: function (loadOptions: any) {
+//       console.log(loadOptions);
+//         let params: HttpParams = new HttpParams();
+//         [
+//             "skip",
+//             "take",
+//             "requireTotalCount",
+//             "requireGroupCount",
+//             "sort",
+//             "filter",
+//             "totalSummary",
+//             "group",
+//             "groupSummary"
+//         ].forEach(function(i) {
+//             if (i in loadOptions && isNotEmpty(loadOptions[i])){
+//               if(i == 'filter') {               
+//                 if(typeof loadOptions[i][0] == 'string') {
+//                   loadOptions[i] = [loadOptions[i]]
+//                 } 
+//               }
+//               params = params.set(i, JSON.stringify(loadOptions[i]));
+//             }
+//         });
+//         console.log(params, 'p')
+//         return this.terS.getUrl().then(res => {
+//             var url = res.serverApi;
+//             return this.httpClient.get(
+//               url +'api/transaction/get-transactions',{
+//               params,
+//               ...headers
+//               })
+//             .toPromise()
+//             .then((data: any) => {
+//               data.data.transaction.forEach(i=>{
+//                 i.listPackage.forEach(j=>{
+//                   if(j.temperatureId === 0 || j.temperatureId === null || j.temperatureId === undefined)
+//                   j.blockType = 0;
+//                 else
+//                   j.blockType = 1;
+//                 if(j.retrieveUser !== null && j.retrieveUser !== undefined && j.retrieveUser !== "")
+//                   j.retrievedTime = j.collectTime;
+//                 else
+//                   j.retrievedTime = null;
+//                 })
+//               })
+//                 return {
+//                     data: data.data.transaction,
+//                     totalCount: data.data.meta.totalRecords,
+//                     // summary: data.summary,
+//                     // groupCount: data.groupCount
+//                 };
+//             })
+//             .catch(error => { throw 'Data Loading Error' });
+//           });
+//     }
+//   });
+// }
+
+
   
 filterTransN(x):void{
   this.value1=x.target.value;

@@ -32,18 +32,19 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './component/alert.component';
 import { HomeComponent } from './home';
 import { AuthInterceptor } from './_helpers/auth-interceptor';
-import { DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule } from 'devextreme-angular';
+import { DxDataGridModule,DxScrollViewModule ,DxNumberBoxModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { PagingComponent } from './paging/paging.component';
 import { DxResponsiveBoxModule } from 'devextreme-angular';
 import { DxTextBoxModule } from 'devextreme-angular';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule, DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,
+        AppRoutingModule,DxNumberBoxModule,DxScrollViewModule , DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,
         MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -63,7 +64,7 @@ import { DxTextBoxModule } from 'devextreme-angular';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent
+        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent,TransactionDetailsComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

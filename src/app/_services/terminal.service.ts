@@ -40,6 +40,48 @@ export class TerminalService {
     
    
   }
+
+
+
+  async Delete(api:string):Promise<any>{
+
+    this.checkAuthen();
+  
+      return await this.getUrl().then(res=>{
+        return this.http.delete<any>(this.url+api, this.GetHeader()).toPromise().then(data=>{
+          return data;
+        });
+      });
+    
+  }
+  async Post(api: string, json?: any): Promise<any> {
+    this.checkAuthen();         
+ 
+      return await this.getUrl().then(res => {
+        return this.http.post<any>(this.url + api, json, this.GetHeader()).toPromise().then(data => {
+          return data;
+        });
+      });      
+    
+    
+  }
+
+  async Put(api: string, json?: any): Promise<any> {
+    this.checkAuthen();         
+ 
+      return await this.getUrl().then(res => {
+        return this.http.put<any>(this.url + api, json, this.GetHeader()).toPromise().then(data => {
+          return data;
+        });
+      });      
+    
+    
+  }
+
+
+
+
+
   checkAuthen(){
     this.token = localStorage.getItem("user_token");
     if(this.token===""|| this.token ===null|| this.token===undefined){
@@ -65,12 +107,22 @@ export class TerminalService {
 
      return this.Get(`api/terminal/get-terminals`);
    }
-
+   GetBasicPolyclinic(){
+    return this.Get('api/polyclinic/get-polyclinic-basic-data');
+  }
    getTransactions(){
      // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
 
 
      return this.Get(`api/transaction/get-transactions`);
+   }
+
+
+   getTransactionDetail(Id:any){
+    return this.Get(`api/transaction/get-transaction?Id=`+Id);
+   }
+   UpdateTerminal(data: any){
+    return this.Put('api/terminal/update-terminal',data)
    }
 
    getTransactions1(pageNumber: any, pageSize: any){
@@ -97,6 +149,17 @@ console.log(value)
         //return this.Get(`api/transaction/get-transactions?Filter=[["TranNo","contains","`+value+`"],"or",["Id","contains","`+value+`"]]`);
         return this.Get(filterUrl);
     
+      }
+      CreateTerminal(data: any){
+        return this.Post('api/terminal/create-terminal', data);
+      }
+      deleteTerminal(terminalID: any){
+        return this.Delete('api/terminal/delete-terminal?terminalId='+terminalID)
+      }
+      error(err){
+        if(err.status==401){
+
+        }
       }
   
 } 

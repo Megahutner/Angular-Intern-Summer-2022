@@ -6,74 +6,66 @@
           <li style="float:left"><h2>Transaction Info</h2></li>
           </ul></nav> 
         <table>
-        <th  class="th1" style="width:6.2%;">
+        <th  class="th1" style="width:36.85%;border: 1px solid #cec9c9;border-left: none;">
           
         </th>
-        <th style="width:10.25%" class="th1">
-          
-        </th>
-        <th style="width:10.25%" class="th1">
-          
-        </th>
-        <th style="width:10.25%" class="th1">
-          
-        </th>
-        <th style="width:10.25%;	border: 1px solid rgb(0, 0, 0);
+       
+        <th style="width:10.25%;	border: 1px solid #cec9c9;
         " class="th1">              
           
             <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="Transaction Number" (keyup)="filterTransN($event)" 
+            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterTransN($event)" 
             matInput ></div>
            
           
         
           
         </th>
-        <th style="width:7.3% ;	border: 1px solid rgb(0, 0, 0);
+        <th style="width:7.3% ;	border: 1px solid #cec9c9;
         " class="th1">            <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" placeholder="Request Type"
+            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" 
             matInput (keyup)="filterRequestT($event)"></div>
 
           
         </th>
-        <th style="width:10.27%;	border: 1px solid rgb(0, 0, 0);
+        <th style="width:10.27%;	border: 1px solid #cec9c9;
         "class="th1">            <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="Request Ref No"
+            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
             matInput (keyup)="filterRequestN($event)" ></div>
 
           
         </th>
-        <th style="width:6.1%;	border: 1px solid rgb(0, 0, 0);
+        <th style="width:6.1%;	border: 1px solid #cec9c9;
         " class="th1">            <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="Created By"
+            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
             matInput (keyup)="filterCreateB($event)"></div>
 
           
         </th>
-        <th style="width:6%;	border: 1px solid rgb(0, 0, 0);
+        <th style="width:6%;	border: 1px solid #cec9c9;
         " class="th1">            <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="Polyclinic"
+            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
             matInput (keyup)="filterPolyclinic($event)"></div>
 
           
         </th>
-        <th style="width:6.1%;	border: 1px solid rgb(0, 0, 0);
+        <th style="width:6.1%;	border: 1px solid #cec9c9;
         "class="th1">             <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="End By"
+            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
             matInput (keyup)="filterEndB($event)"></div>
 
           
         </th>
-        <th [width]="100" class="th1">
+        <th [width]="100" class="th1" style="border: 1px solid #cec9c9;;border-right: none;">
           <div style="width:100%">
             <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="End Reason"
+            <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
             matInput (keyup)="filterEndR($event)"></div>
           
         </th>
@@ -84,16 +76,16 @@
             id="grid-container"
             [dataSource]="transactions"
             keyExpr="Id"
-            [showBorders]="true"
-            [selectedRowKeys] =[]
+            [showBorders]="false"
             [columnAutoWidth]="false"
             style="width:100%"
             [showColumnLines]="true"
-            [focusedRowEnabled]="true"
             (onRowUpdated)="onRowUpdated($event)"
             (onRowRemoved)="onRowRemoved($event)"
             (onRowInserted)="onRowInserted($event)"
-           
+            [focusedRowEnabled]="true"
+            [hoverStateEnabled]="true"
+            (onRowClick)="onRowClick($event)"
             >
             <!-- <dxo-filter-row
     [visible]="showFilterRow"
@@ -116,33 +108,22 @@
             </dxo-pager> -->
            
           
-          
-          
-            <dxo-editing
-            [allowUpdating]="true"
-            [allowDeleting]="true"
-            
-            [useIcons]="true">
-        </dxo-editing>
-            <dxi-column type="buttons" flexPosition="left" [width]="100">
-              <dxi-button 
-                  name="save"></dxi-button>
-              <dxi-button name="edit"></dxi-button>
-              <dxi-button name="delete"></dxi-button>
-          </dxi-column>
+         
+           
+           
 
            
             
-            <dxi-column [allowFiltering]="false"  alignment="left" [width]="170" dataField ="CreateDate" caption = "Create Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "  >
+            <dxi-column [allowFiltering]="false"  alignment="center" [width]="203.3" dataField ="CreateDate" caption = "Create Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "  >
                      </dxi-column>
-            <dxi-column [allowFiltering]="false" alignment="left" [width]="170" dataField ="EndDate" caption = "End Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            <dxi-column [allowFiltering]="false" alignment="center" [width]="203.3" dataField ="EndDate" caption = "End Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
             </dxi-column>
-            <dxi-column [allowFiltering]="false" alignment="left" [width]="170" dataField ="TranDateTime" caption = "Tran.Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            <dxi-column [allowFiltering]="false" alignment="center" [width]="203.3" dataField ="TranDateTime" caption = "Tran.Date Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
             
             </dxi-column>
            
-          <dxi-column alignment="center" [width]="170" dataField ="TranNo" caption = "Transaction Number">
-            
+          <dxi-column alignment="center" [width]="170" dataType="string"  dataField="TranNo" caption = "Transaction Number">
+            <!-- <a routerLink="['/transaction/transaction-details']" [queryParams]="{id: transactions.Id}">{{transactions.TranNo}}</a> -->
           </dxi-column>
           <dxi-column alignment="left" [width]="120" dataField ="RequestType" caption = "Request Type">
             
@@ -167,6 +148,7 @@
             
       
             </dx-data-grid>
+           
             <paging-component
             [current]="current"
             [total]="total"
@@ -176,6 +158,182 @@
             (previous)="onPrevious($event)"
             (switchs)="switch($event)"
           ></paging-component> 
+
+          <dx-popup
+          [dragEnabled]="true"
+      [width]="'auto'"
+      [height]="'auto'"
+
+      [closeOnOutsideClick]="true"
+      [showTitle]="true"
+      title="Transaction Detail"
+      [(visible)]="popupTransaction"
+    >
+    <div style="text-align: left;
+    background-color: #fff;">
+    <div class="col-md-12" style="font-size: 15px;">
+      <div>GENERAL INFORMATION</div>
+    <div class="box-body no-padding" style="border: 1px solid #e6e2e2;" *ngIf="transactionInfo">
+      <table class="table">
+        <tbody>
+          <tr >
+            <td style="width:20%">Transaction No.</td>
+            <td>{{transactionInfo.TranNo || '-'}}</td>
+            <td style="width:20%">Created Time</td>
+            <td>{{transactionInfo.CreateDate | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Polyclinic</td>
+            <td>{{transactionInfo.Polyclinic || '-'}}</td>
+            <td>Created By</td>
+            <td>{{transactionInfo.CreateBy || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Request Ref No.</td>
+            <td>{{transactionInfo.RequestRefNo || '-'}}</td>
+            <td>Tran. Date Time</td>
+            <td>{{transactionInfo.TranDateTime | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+          
+            <td>Ended By</td>
+            <td>{{transactionInfo.EndBy || '-'}}</td>
+            <td>Ended Time</td>
+            <td>{{transactionInfo.EndDate | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Transaction Status</td>
+            <td>{{getTransactionStatus(transactionInfo.Status)}}</td>
+            <td>Ended/Failed Reason</td>
+            <td>{{transactionInfo.EndedReason || '-'}}</td>
+          </tr>
+          
+      
+        </tbody>
+      </table>
+    </div> 
+  </div>
+  <div class="col-md-12" style="margin-top: 50px">
+    <div class="box-header with-border" style="font-size: 15px;">
+TRANSACTION LOGS    </div>
+    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="transLogs"
+    keyExpr="TimeLog"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    >
+    <dxi-column alignment="left"  dataField ="TimeLog" caption = "TimeLog" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="From" caption = "From">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Action" caption = "Action">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Content" caption = "Content">
+            
+    </dxi-column>
+  
+  
+  
+  
+  </dx-data-grid>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 50px;">
+    <div class="box-header with-border" style="font-size: 15px;">
+      ITEMS 
+    </div>
+    <div >
+    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="transDetails"
+    keyExpr="BinCode"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    >
+    <dxi-column alignment="left"  dataField ="BinCode" caption = "Bin Code">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="ItemCode" caption = "Item Code">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Description" caption = "Description">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Qty" caption = "Quantity">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Status" caption = "Status">
+      <dxo-lookup [dataSource]="statusData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Uom" caption = "UOM">
+            
+    </dxi-column>
+  
+  
+  
+  
+  
+  </dx-data-grid>
+    </div>
+  </div>
+ 
+
+  <div class="col-md-12" style="margin-top: 50px;">
+    <div class="box-header with-border" style="font-size: 15px;">
+      PAYMENT 
+    </div>
+    
+    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="payment"
+    keyExpr="CreateTime"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    >
+    <dxi-column alignment="left"  dataField ="PaymentId" caption = "Payment ID">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Description" caption = "Description">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="CreateTime" caption = "Created Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="SuccessTime" caption = "Success Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="PaymentType" caption = "Payment Type">
+      <dxo-lookup [dataSource]="PayType" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Status" caption = "Status">
+      <dxo-lookup [dataSource]="statuspayment" displayExpr="name" valueExpr="id"></dxo-lookup>
+            
+    </dxi-column>
+  
+  
+  
+  </dx-data-grid>
+  </div>
+      
+     
+  
+      
+                       
+          
+          
+  </div>
+  </dx-popup>
+    
           </div>
   
         </div>
