@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { TerminalComponent } from './terminal/terminal.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule} from '@angular/material/list';
+import { FormsModule } from '@angular/forms';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -38,11 +39,12 @@ import { PagingComponent } from './paging/paging.component';
 import { DxResponsiveBoxModule } from 'devextreme-angular';
 import { DxTextBoxModule } from 'devextreme-angular';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
     imports: [
         BrowserModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule,FormsModule,
         HttpClientModule,
         AppRoutingModule,DxNumberBoxModule,DxScrollViewModule , DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,
         MatCardModule,
@@ -64,7 +66,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent,TransactionDetailsComponent
+        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent,TransactionDetailsComponent,FilterComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

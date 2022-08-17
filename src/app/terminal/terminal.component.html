@@ -15,11 +15,24 @@
       
            <!--<button mat-raised-button color="primary"><mat-icon>note_add</mat-icon></button> -->
           </dx-button></li></ul></nav> 
+          <filter-component
+          [filterOption]="this.filterOption"
+[statusData]="statusData"
+[onlineStatus]="onlineStatus"
+     [typeTerminal]="typeTerminal"
+     (filterIds)="filterId($event)"
+     (filterNames)="filterName($event)"
+     (filterCodes)="filterCode($event)"
+     (filterDess)="filterDes($event)"
+     (filterOnlineStatuss)="filterOnlineStatus($event)"
+     (filterTypeTerminals)="filterTypeTerminal($event)"
+     (filterStatusDatas)="filterStatusData($event)"
+      ></filter-component>
   <dx-data-grid 
  
             #grid 
             id="grid-container"
-            [dataSource]="terminalsToDisplay"
+            [dataSource]="terminals"
             keyExpr="Id"
             (onRowRemoved)="deleteTerminal($event)"
             [showBorders]="true"
@@ -72,8 +85,7 @@
   [total]="total"
   [perPage]="perPage"
   (goTo)="onGoTo($event)"
-  (next)="onNext($event)"
-  (previous)="onPrevious($event)"
+  
   (switchs)="switch($event)"
 ></paging-component>
           </div>

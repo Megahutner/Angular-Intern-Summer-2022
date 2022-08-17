@@ -1,0 +1,147 @@
+<table *ngIf="this.option===1">
+    <th  class="th1" style="width:36.85%;border: 1px solid #cec9c9;border-left: none;">
+      
+    </th>
+   
+    <th style="width:10.29%;	border: 1px solid #cec9c9;
+    " class="th1">              
+      
+        <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterTransN($event)" 
+        matInput ></div>
+       
+      
+    
+      
+    </th>
+    <th style="width:7.24% ;	border: 1px solid #cec9c9;
+    " class="th1">            <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" 
+        matInput (keyup)="filterRequestT($event)"></div>
+
+      
+    </th>
+    <th style="width:10.25%;	border: 1px solid #cec9c9;
+    "class="th1">            <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
+        matInput (keyup)="filterRequestN($event)" ></div>
+
+      
+    </th>
+    <th style="width:6.1%;	border: 1px solid #cec9c9;
+    " class="th1">            <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
+        matInput (keyup)="filterCreateB($event)"></div>
+
+      
+    </th>
+    <th style="width:6%;	border: 1px solid #cec9c9;
+    " class="th1">            <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
+        matInput (keyup)="filterPolyclinic($event)"></div>
+
+      
+    </th>
+    <th style="width:6.05%;	border: 1px solid #cec9c9;
+    "class="th1">             <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
+        matInput (keyup)="filterEndB($event)"></div>
+
+      
+    </th>
+    <th [width]="100" class="th1" style="border: 1px solid #cec9c9;;border-right: none;">
+      <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
+        matInput (keyup)="filterEndR($event)"></div>
+      
+    </th>
+  </table>  
+
+
+  <table *ngIf="this.option===2">
+    <th  class="th1" style="width:6.1%;border: 1px solid #cec9c9;border-left: none;">
+      
+    </th>
+    <th style="width: 12.1%;	border: 1px solid #cec9c9;
+    " class="th1">              
+      
+        <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterId($event)"
+        matInput ></div>
+       
+      
+    
+      
+    </th>
+    <th style="width:9.05%;	border: 1px solid #cec9c9;
+    " class="th1">              
+      
+        <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterCode($event)"
+        matInput ></div>
+       
+      
+    
+      
+    </th>
+    <th style="width:12.1%;	border: 1px solid #cec9c9;
+    " class="th1">              
+      
+        <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" (keyup)="filterName($event)"
+        matInput ></div>
+       
+      
+    
+      
+    </th>
+    <th style="width:12.1%;	border: 1px solid #cec9c9;
+    " class="th1">              
+      
+        <div style="width:100%">
+        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterDes($event)"
+        matInput ></div>
+       
+      
+    
+      
+    </th>
+    <th  class="th1" style="width:9.05%;border: 1px solid #cec9c9;border-left: none;">
+        <select  style="width:100% ;position: relative;border-color: #fff;outline:0"  name="oStatus" [(value)]="selectedStatus" (change)="filterOnlineStatus($event)" >
+        <option *ngFor="let oStatus of onlineStatus" [value]="oStatus.ID" >
+          {{ oStatus.Name }}
+        </option>
+          </select>
+    </th>
+    <th  class="th1" style="width:6.05%;border: 1px solid #cec9c9;border-left: none;">
+        <select style="width:100%;position: relative;border-color: #fff;outline:0 " class="form-control" name="terminal" [(ngModel)]="selectedType" (change)="filterTypeTerminal($event)">
+        <option *ngFor="let terminal of typeTerminal" [value]="terminal.Id">
+          {{ terminal.Name }}
+        </option>
+          </select>
+    </th>
+    
+    <th  class="th1" [width]="100" style="border: 1px solid #cec9c9">
+        <select style="width:100%;border-color: #fff ;outline:0" class="form-control" name="sData" [(ngModel)]="selectedData" (change)="filterStatusData($event)" >
+        <option *ngFor="let sData of statusData" [value]="sData.Id">
+          {{ sData.Name }}
+        </option>
+          </select>
+    </th>
+   
+    
+  </table>  
+
+
+  

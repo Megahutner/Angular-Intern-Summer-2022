@@ -131,6 +131,12 @@ export class TerminalService {
 
     return this.Get(`api/transaction/get-transactions?PageNumber=`+pageNumber+`&Take=`+pageSize);
   }
+  getTerminals1(pageNumber: any, pageSize: any){
+    // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
+
+
+    return this.Get(`api/terminal/get-terminals?PageNumber=`+pageNumber+`&Take=`+pageSize);
+  }
   getFilterTransactions(value:string,pageNumber: any, pageSize: any){
 console.log(value)
 
@@ -149,6 +155,11 @@ console.log(value)
         //return this.Get(`api/transaction/get-transactions?Filter=[["TranNo","contains","`+value+`"],"or",["Id","contains","`+value+`"]]`);
         return this.Get(filterUrl);
     
+      }
+      getFilterTerminals1(filterUrl:string){
+        console.log(filterUrl)
+        return this.Get(filterUrl);
+
       }
       CreateTerminal(data: any){
         return this.Post('api/terminal/create-terminal', data);

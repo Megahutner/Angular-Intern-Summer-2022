@@ -24,6 +24,7 @@ import { SlicePipe } from '@angular/common';
 export class TerminalComponent implements OnInit{
   @ViewChild('gridListCollectionLog') gridListCollectionLog: DxDataGridComponent;
 public total: number;
+public totalRecords: number
   public current:number = 1;
   public perPage:number = 10;
   special:string="Special"
@@ -31,23 +32,46 @@ public total: number;
   popupTerminalVisible: boolean = false;
   isUpdate: boolean=false;
   refreshMode:string;
+  x:any;
+    requestUrl='';
+  value1='';
+    value2='';
+    value3='';
+    value4='';
+    value5:any;
+    value6:any;
+    value7:any;
+    url1='';
+    url2='';
+    url3='';
+    url4='';
+    url5='';
+    url6='';
+    url7='';
   typeShow=[
     {Id: 0, Name: "Show Full"},
     {Id: 1, Name: "Not Show Full"},
   ]
   onlineStatus=[{
+    
+    ID:-1, Name:""
+  },{
+
     ID:0, Name:"Unknown"
   },
 {
   ID:1,Name:"Online"
 }]
   statusData=[{
+    Id:-1,Name:""
+  },{
     Id:0,Name:"Disabled"
   },{
     Id:1, Name:"Active"
   }
 ]
 typeTerminal = [
+  {Id: -1, Name: ""},
   {Id: 0, Name: "Standard"},
   {Id: 1, Name: "Special"}
 ]
@@ -73,7 +97,7 @@ typeTerminal = [
   group:any;
   type:any;
   dataPolyclinic:any;
-
+  filterOption: number;
     user: User;
     showFilterRow: boolean;
     showHeaderFilter: boolean;
@@ -95,6 +119,8 @@ typeTerminal = [
 
     }
     ngOnInit():void{
+      this.filterOption =2;
+
       this.getBasicPolyclinic();
 
       
@@ -107,15 +133,16 @@ typeTerminal = [
       };
       // this.refreshComponent();
       this.user = this.accountService.userValue;
-     this.terS.getTerminals().then(ter=>{
+     this.terS.getTerminals1(this.current,this.perPage).then(ter=>{
             this.terminals = ter.data.terminal;
+            this.totalRecords = ter.data.meta.TotalRecords
+            this.total = Math.ceil(this.totalRecords/this.perPage)
            // console.log(this.terminals.length)
-            this.total = Math.ceil(this.terminals.length/this.perPage)
 
             //console.log(this.perPage)
 
 
-            this.terminalsToDisplay=this.paginate(this.current,this.perPage)
+            //this.terminalsToDisplay=this.paginate(this.current,this.perPage)
           })
             // this.gridListCollectionLog.instance.clearFilter();
             // this.gridListCollectionLog.instance.clearSorting();
@@ -171,17 +198,43 @@ typeTerminal = [
 
     public onGoTo(page:number): void{
       this.current = page
-      
-      this.terminalsToDisplay= this.paginate(this.current,this.perPage)
+      this.perPage=this.perPage
+      this.total=this.total
+      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+     
+      this.requestUrl=initialUrl
+      if (this.value1!=''){
+        this.requestUrl=this.requestUrl+this.url1
+      }
+      if (this.value2!=''){
+        this.requestUrl=this.requestUrl+this.url2
+      }
+      if (this.value3!=''){
+        this.requestUrl=this.requestUrl+this.url3
+      }
+      if (this.value4!=''){
+        this.requestUrl=this.requestUrl+this.url4
+      }
+      if (this.value5!='-1'){
+        this.requestUrl=this.requestUrl+this.url5
+      }
+      if (this.value6!='-1'){
+        this.requestUrl=this.requestUrl+this.url6
+      }
+      if (this.value7!='-1'){
+        this.requestUrl=this.requestUrl+this.url7
+      }
+      this.terS.getFilterTerminals1(this.requestUrl).then(ters=>{
+        this.terminals = ters.data.terminal;})
     }
-    public onNext(page:number): void{
-      this.current = page +1
-      this.terminalsToDisplay= this.paginate(this.current,this.perPage)
-    }
-    public onPrevious(page:number): void{
-      this.current = page-1
-      this.terminalsToDisplay= this.paginate(this.current,this.perPage)
-    }
+    // public onNext(page:number): void{
+    //   this.current = page +1
+    //   this.terminalsToDisplay= this.paginate(this.current,this.perPage)
+    // }
+    // public onPrevious(page:number): void{
+    //   this.current = page-1
+    //   this.terminalsToDisplay= this.paginate(this.current,this.perPage)
+    // }
     deleteTerminal(e:any){
       console.log(e.data.Id)
       this.terS.deleteTerminal(e.data.Id).then(res=>{
@@ -208,10 +261,35 @@ typeTerminal = [
       }, status, 2000);
     }
 public switch(perPage:number):void{
-  this.current= 1
   this.perPage =perPage
-  this.total= Math.floor(this.terminals.length/this.perPage)+1
-  this.terminalsToDisplay= this.paginate(this.current,this.perPage)
+  this.total= Math.floor(this.totalRecords/this.perPage)+1
+  this.current=1
+  var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+     
+      this.requestUrl=initialUrl
+      if (this.value1!=''){
+        this.requestUrl=this.requestUrl+this.url1
+      }
+      if (this.value2!=''){
+        this.requestUrl=this.requestUrl+this.url2
+      }
+      if (this.value3!=''){
+        this.requestUrl=this.requestUrl+this.url3
+      }
+      if (this.value4!=''){
+        this.requestUrl=this.requestUrl+this.url4
+      }
+      if (this.value5!='-1'){
+        this.requestUrl=this.requestUrl+this.url5
+      }
+      if (this.value6!='-1'){
+        this.requestUrl=this.requestUrl+this.url6
+      }
+      if (this.value7!='-1'){
+        this.requestUrl=this.requestUrl+this.url7
+      }
+      this.terS.getFilterTerminals1(this.requestUrl).then(ters=>{
+        this.terminals = ters.data.terminal;})
 }
     public terminalsToDisplay: string[]=[]
     public paginate(current: number, perPage: number):string[]{
@@ -343,6 +421,521 @@ public switch(perPage:number):void{
         this.terS.error(err);
       })
     }}
+
+
+    filterId(x):void{
+      this.value1=x.target.value;
+      this.current=1
+      this.perPage=this.perPage
+      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+      if(this.value1 != '' ){
+        var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+    
+    
+    
+        this.url1= ',"or",["TerminalId","contains",'+this.value1+']';
+        this.requestUrl=initialUrl + this.url1
+        if(this.value2!=''){
+          this.requestUrl=this.requestUrl+this.url2
+        }
+        if(this.value3!=''){
+          this.requestUrl=this.requestUrl+this.url3
+        }
+        if(this.value4!=''){
+          this.requestUrl=this.requestUrl+this.url4
+        }
+        if(this.value5!='-1'){
+          this.requestUrl=this.requestUrl+this.url5
+        }
+        if(this.value6!='-1'){
+          this.requestUrl=this.requestUrl+this.url6
+        }
+        if(this.value7!='-1'){
+          this.requestUrl=this.requestUrl+this.url7
+        }
+        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+          this.total = Math.ceil(this.totalRecords/this.perPage)
+          this.terminals = terF.data.terminal 
+    
+        })
+      }
+      else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
+        this.terS.getTerminals1(1,this.perPage).then(ter=>{
+          this.terminals = ter.data.terminal;
+          this.totalRecords = ter.data.meta.TotalRecords
+          this.total = Math.ceil(this.totalRecords/this.perPage)})
+    
+      }
+      else{
+        this.requestUrl=initialUrl
+        if(this.value2!=''){
+          this.requestUrl=this.requestUrl+this.url2
+        }
+        if(this.value3!=''){
+          this.requestUrl=this.requestUrl+this.url3
+        }
+        if(this.value4!=''){
+          this.requestUrl=this.requestUrl+this.url4
+        }
+        if(this.value5!='-1'){
+          this.requestUrl=this.requestUrl+this.url5
+        }
+        if(this.value6!='-1'){
+          this.requestUrl=this.requestUrl+this.url6
+        }
+        if(this.value7!='-1'){
+          this.requestUrl=this.requestUrl+this.url7
+        }
+     
+        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+          this.total = Math.ceil(this.totalRecords/this.perPage)
+          this.terminals = terF.data.terminal 
+    
+        })
+      }}
+      filterCode(x):void{
+        this.value2=x.target.value;
+        this.current=1
+        this.perPage=this.perPage
+        var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+        if(this.value2 != '' ){
+          var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+      
+      
+      
+          this.url2= ',"or",["EzyCode","contains","'+this.value2+'"]';
+          this.requestUrl=initialUrl + this.url2
+          if(this.value1!=''){
+            this.requestUrl=this.requestUrl+this.url1
+          }
+          if(this.value3!=''){
+            this.requestUrl=this.requestUrl+this.url3
+          }
+          if(this.value4!=''){
+            this.requestUrl=this.requestUrl+this.url4
+          }
+          if(this.value5!='-1'){
+            this.requestUrl=this.requestUrl+this.url5
+          }
+          if(this.value6!='-1'){
+            this.requestUrl=this.requestUrl+this.url6
+          }
+          if(this.value7!='-1'){
+            this.requestUrl=this.requestUrl+this.url7
+          }
+          this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+            this.total = Math.ceil(this.totalRecords/this.perPage)
+            this.terminals = terF.data.terminal 
+      
+          })
+        }
+        else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''){
+          this.terS.getTerminals1(1,this.perPage).then(ter=>{
+            this.terminals = ter.data.terminal;
+            this.totalRecords = ter.data.meta.TotalRecords
+            this.total = Math.ceil(this.totalRecords/this.perPage)})
+      
+        }
+        else{
+          this.requestUrl=initialUrl
+          if(this.value1!=''){
+            this.requestUrl=this.requestUrl+this.url1
+          }
+          if(this.value3!=''){
+            this.requestUrl=this.requestUrl+this.url3
+          }
+          if(this.value4!=''){
+            this.requestUrl=this.requestUrl+this.url4
+          }
+          if(this.value5!='-1'){
+            this.requestUrl=this.requestUrl+this.url5
+          }
+          if(this.value6!='-1'){
+            this.requestUrl=this.requestUrl+this.url6
+          }
+          if(this.value7!='-1'){
+            this.requestUrl=this.requestUrl+this.url7
+          }
+       
+          this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+            this.total = Math.ceil(this.totalRecords/this.perPage)
+            this.terminals = terF.data.terminal 
+      
+          })
+        }}
+        filterName(x):void{
+          console.log(3)
+          this.value3=x.target.value;
+          this.current=1
+          this.perPage=this.perPage
+          var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+          if(this.value3 != '' ){
+            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+        
+        
+        
+            this.url3= ',"or",["Name","contains","'+this.value3+'"]';
+            this.requestUrl=initialUrl + this.url3
+            if(this.value2!=''){
+              this.requestUrl=this.requestUrl+this.url2
+            }
+            if(this.value1!=''){
+              this.requestUrl=this.requestUrl+this.url1
+            }
+            if(this.value4!=''){
+              this.requestUrl=this.requestUrl+this.url4
+            }
+            if(this.value5!='-1'){
+              this.requestUrl=this.requestUrl+this.url5
+            }
+            if(this.value6!='-1'){
+              this.requestUrl=this.requestUrl+this.url6
+            }
+            if(this.value7!='-1'){
+              this.requestUrl=this.requestUrl+this.url7
+            }
+            this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+              this.total = Math.ceil(this.totalRecords/this.perPage)
+              this.terminals = terF.data.terminal 
+        
+            })
+          }
+          else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''){
+            this.terS.getTerminals1(1,this.perPage).then(ter=>{
+              this.terminals = ter.data.terminal;
+              this.totalRecords = ter.data.meta.TotalRecords
+              this.total = Math.ceil(this.totalRecords/this.perPage)})
+        
+          }
+          else{
+            this.requestUrl=initialUrl
+            if(this.value2!=''){
+              this.requestUrl=this.requestUrl+this.url2
+            }
+            if(this.value1!=''){
+              this.requestUrl=this.requestUrl+this.url1
+            }
+            if(this.value4!=''){
+              this.requestUrl=this.requestUrl+this.url4
+            }
+            if(this.value5!='-1'){
+              this.requestUrl=this.requestUrl+this.url5
+            }
+            if(this.value6!='-1'){
+              this.requestUrl=this.requestUrl+this.url6
+            }
+            if(this.value7!='-1'){
+              this.requestUrl=this.requestUrl+this.url7
+            }
+         
+            this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+              this.total = Math.ceil(this.totalRecords/this.perPage)
+              this.terminals = terF.data.terminal 
+        
+            })
+          }}
+
+
+
+
+          filterDes(x):void{
+            console.log(4)
+            this.value4=x.target.value;
+            this.current=1
+            this.perPage=this.perPage
+            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+            if(this.value4 != '' ){
+              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+          
+          
+          
+              this.url4= ',"or",["Description","contains","'+this.value4+'"]';
+              this.requestUrl=initialUrl + this.url4
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''){
+              this.terS.getTerminals1(1,this.perPage).then(ter=>{
+                this.terminals = ter.data.terminal;
+                this.totalRecords = ter.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)})
+          
+            }
+            else{
+              this.requestUrl=initialUrl
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+           
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }}
+            filterOnlineStatus(x):void{
+
+            this.value5=x.target.value;
+            this.current=1
+            this.perPage=this.perPage
+            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+            if(this.value5 != '-1' ){
+              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+          
+          
+          
+              this.url5= ',"or",["IsOnline","=","'+this.value5+'"]';
+              this.requestUrl=initialUrl + this.url5
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
+              this.terS.getTerminals1(1,this.perPage).then(ter=>{
+                this.terminals = ter.data.terminal;
+                this.totalRecords = ter.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)})
+          
+            }
+            else{
+              this.requestUrl=initialUrl
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+           
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+          
+          
+           }
+
+
+
+
+
+
+            filterStatusData(x):void{
+              this.value6=x.target.value;
+            this.current=1
+            this.perPage=this.perPage
+            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+            if(this.value6 != '-1' ){
+              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+          
+          
+          
+              this.url6= ',"or",["Status","=","'+this.value6+'"]';
+              this.requestUrl=initialUrl + this.url6
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
+              this.terS.getTerminals1(1,this.perPage).then(ter=>{
+                this.terminals = ter.data.terminal;
+                this.totalRecords = ter.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)})
+          
+            }
+            else{
+              this.requestUrl=initialUrl
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+              if(this.value7!='-1'){
+                this.requestUrl=this.requestUrl+this.url7
+              }
+           
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+              
+
+            }
+            filterTypeTerminal(x):void{
+              this.value7=x.target.value;
+            this.current=1
+            this.perPage=this.perPage
+            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+            if(this.value7 != '-1' ){
+              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+          
+          
+          
+              this.url7= ',"or",["Type","=","'+this.value7+'"]';
+              this.requestUrl=initialUrl + this.url7
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
+              this.terS.getTerminals1(1,this.perPage).then(ter=>{
+                this.terminals = ter.data.terminal;
+                this.totalRecords = ter.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)})
+          
+            }
+            else{
+              this.requestUrl=initialUrl
+              if(this.value2!=''){
+                this.requestUrl=this.requestUrl+this.url2
+              }
+              if(this.value3!=''){
+                this.requestUrl=this.requestUrl+this.url3
+              }
+              if(this.value1!=''){
+                this.requestUrl=this.requestUrl+this.url1
+              }
+              if(this.value5!='-1'){
+                this.requestUrl=this.requestUrl+this.url5
+              }
+              if(this.value6!='-1'){
+                this.requestUrl=this.requestUrl+this.url6
+              }
+              if(this.value4!=''){
+                this.requestUrl=this.requestUrl+this.url4
+              }
+           
+              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+                this.total = Math.ceil(this.totalRecords/this.perPage)
+                this.terminals = terF.data.terminal 
+          
+              })
+            }
+           
+
+            }
+    
 
    
     

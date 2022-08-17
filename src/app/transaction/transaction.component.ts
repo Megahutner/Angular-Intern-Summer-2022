@@ -34,6 +34,7 @@ export class TransactionComponent implements OnInit {
 
 
 
+    x:any;
     requestUrl='';
     url1='';
     url2='';
@@ -74,6 +75,7 @@ export class TransactionComponent implements OnInit {
     transDetails: any;
     transImage: any;
     payment: any;
+    filterOption: number
     statusData=[
       {id:1, name:"Waiting"},
       {id:2, name:"Collected"},
@@ -110,7 +112,10 @@ export class TransactionComponent implements OnInit {
 
         
     }
-    ngOnInit(){ this.user = this.accountService.userValue;
+    ngOnInit(){ 
+      this.filterOption =1;
+      
+      this.user = this.accountService.userValue;
         //  this.terS.getTerminals().then(ter=>{
         //         this.terminals = ter.data.terminal;
         //         console.log(this.terminals)
@@ -145,10 +150,35 @@ export class TransactionComponent implements OnInit {
 
     }
     public onGoTo(page:number): void{
-      this.requestUrl=this.requestUrl
       this.current = page
       this.perPage=this.perPage
-      this.terS.getTransactions1(this.current,this.perPage).then(trans=>{
+      this.total=this.total
+      var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+     
+      this.requestUrl=initialUrl
+      
+      if (this.value1!=''){
+        this.requestUrl=this.requestUrl+this.url1
+      }
+      if (this.value2!=''){
+        this.requestUrl=this.requestUrl+this.url2
+      }
+      if (this.value3!=''){
+        this.requestUrl=this.requestUrl+this.url3
+      }
+      if (this.value4!=''){
+        this.requestUrl=this.requestUrl+this.url4
+      }
+      if (this.value5!=''){
+        this.requestUrl=this.requestUrl+this.url5
+      }
+      if (this.value6!=''){
+        this.requestUrl=this.requestUrl+this.url6
+      }
+      if (this.value7!=''){
+        this.requestUrl=this.requestUrl+this.url7
+      }
+      this.terS.getFilterTransactions1(this.requestUrl).then(trans=>{
              this.transactions = trans.data.transaction;})
       
     //  this.transactionsToDisplay= this.paginate(this.current,this.perPage)
@@ -165,7 +195,32 @@ public switch(perPage:number):void{
   this.perPage =perPage
   this.total= Math.floor(this.totalRecords/this.perPage)+1
   this.current=1
-  this.terS.getTransactions1(this.current,this.perPage).then(trans=>{
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
+     
+      this.requestUrl=initialUrl
+      
+      if (this.value1!=''){
+        this.requestUrl=this.requestUrl+this.url1
+      }
+      if (this.value2!=''){
+        this.requestUrl=this.requestUrl+this.url2
+      }
+      if (this.value3!=''){
+        this.requestUrl=this.requestUrl+this.url3
+      }
+      if (this.value4!=''){
+        this.requestUrl=this.requestUrl+this.url4
+      }
+      if (this.value5!=''){
+        this.requestUrl=this.requestUrl+this.url5
+      }
+      if (this.value6!=''){
+        this.requestUrl=this.requestUrl+this.url6
+      }
+      if (this.value7!=''){
+        this.requestUrl=this.requestUrl+this.url7
+      }
+  this.terS.getFilterTransactions1(this.requestUrl).then(trans=>{
     this.transactions = trans.data.transaction;})
 
   //this.transactionsToDisplay= this.paginate(this.current,this.perPage)
@@ -185,7 +240,7 @@ public switch(perPage:number):void{
      
   }
   onRowClick(e:any){
-    this.popupTransaction=true
+    this.popupTransaction=true;
 
     this.terS.getTransactionDetail(e.data.Id).then(transDetail=>{
       console.log(transDetail)
@@ -310,9 +365,9 @@ filterTransN(x):void{
   this.value1=x.target.value;
   this.current=1
   this.perPage=this.perPage
-  var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
   if(this.value1 != '' ){
-    var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+    var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
 
 
 
@@ -388,9 +443,9 @@ filterRequestT(x):void{
   this.value2=x.target.value;
   this.current=1
   this.perPage=this.perPage
-  var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
   if(this.value2 != '' ){
-    var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+    var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
 
 
 
@@ -461,9 +516,9 @@ filterRequestN(x):void{
   this.value3=x.target.value;
   this.current=1
   this.perPage=this.perPage
-  var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
   if(this.value3 != '' ){
-    var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+    var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
 
 
 
@@ -533,14 +588,14 @@ filterCreateB(x):void{
   this.value4=x.target.value;
   this.current=1
   this.perPage=this.perPage
-  var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
   if(this.value4 != '' ){
-    var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+    var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
 
 
 
     this.url4= ',"or",["CreateBy","contains","'+this.value4+'"]';
-    this.requestUrl=initialUrl + this.url1
+    this.requestUrl=initialUrl + this.url4
     if(this.value2!=''){
       this.requestUrl=this.requestUrl+this.url2
     }
@@ -607,9 +662,9 @@ filterPolyclinic(x):void{
   this.value5=x.target.value;
   this.current=1
   this.perPage=this.perPage
-  var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+  var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
   if(this.value5 != '' ){
-    var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
+    var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
 
 
 
