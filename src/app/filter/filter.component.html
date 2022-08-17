@@ -118,23 +118,26 @@
       
     </th>
     <th  class="th1" style="width:9.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select  style="width:100% ;position: relative;border-color: #fff;outline:0"  name="oStatus" [(value)]="selectedStatus" (change)="filterOnlineStatus($event)" >
-        <option *ngFor="let oStatus of onlineStatus" [value]="oStatus.ID" >
+        <select  style="width:100% ;position: relative;border-color: #fff;outline:0;cursor: pointer;"  name="oStatus" [(value)]="selectedStatus" (change)="filterOnlineStatus($event)" >
+        <option value ="" selected="selected" hidden="hidden">(All)</option>
+          <option *ngFor="let oStatus of onlineStatus" [value]="oStatus.ID" >
           {{ oStatus.Name }}
         </option>
           </select>
     </th>
     <th  class="th1" style="width:6.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select style="width:100%;position: relative;border-color: #fff;outline:0 " class="form-control" name="terminal" [(ngModel)]="selectedType" (change)="filterTypeTerminal($event)">
-        <option *ngFor="let terminal of typeTerminal" [value]="terminal.Id">
+        <select style="width:100%;position: relative;border-color: #fff;outline:0;cursor: pointer; "  name="terminal" (change)="filterTypeTerminal($event)">
+          <option value ="" selected="selected" hidden="hidden">(All)</option>
+          <option *ngFor="let terminal of typeTerminal" [value]="terminal.Id">
           {{ terminal.Name }}
         </option>
           </select>
     </th>
     
     <th  class="th1" [width]="100" style="border: 1px solid #cec9c9">
-        <select style="width:100%;border-color: #fff ;outline:0" class="form-control" name="sData" [(ngModel)]="selectedData" (change)="filterStatusData($event)" >
-        <option *ngFor="let sData of statusData" [value]="sData.Id">
+        <select style="width:100%;border-color: #fff ;outline:0;cursor: pointer;" class="form-control" name="sData"  (change)="filterStatusData($event)" >
+          <option value ="" selected="selected" hidden="hidden">(All)</option>
+          <option *ngFor="let sData of statusData" [value]="sData.Id">
           {{ sData.Name }}
         </option>
           </select>

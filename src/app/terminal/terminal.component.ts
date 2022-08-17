@@ -54,7 +54,7 @@ public totalRecords: number
   ]
   onlineStatus=[{
     
-    ID:-1, Name:""
+    ID:-1, Name:"(All)"
   },{
 
     ID:0, Name:"Unknown"
@@ -63,7 +63,7 @@ public totalRecords: number
   ID:1,Name:"Online"
 }]
   statusData=[{
-    Id:-1,Name:""
+    Id:-1,Name:"(All)"
   },{
     Id:0,Name:"Disabled"
   },{
@@ -71,7 +71,7 @@ public totalRecords: number
   }
 ]
 typeTerminal = [
-  {Id: -1, Name: ""},
+  {Id: -1, Name: "(All)"},
   {Id: 0, Name: "Standard"},
   {Id: 1, Name: "Special"}
 ]
@@ -433,7 +433,7 @@ public switch(perPage:number):void{
     
     
     
-        this.url1= ',"or",["TerminalId","contains",'+this.value1+']';
+        this.url1= ',"or",["TerminalId","contains","'+this.value1+'"]';
         this.requestUrl=initialUrl + this.url1
         if(this.value2!=''){
           this.requestUrl=this.requestUrl+this.url2
