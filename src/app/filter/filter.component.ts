@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, Output,EventEmitter, NgModule } from '@angular/core';
+import { delay } from 'rxjs/operators';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'filter-component',
@@ -12,7 +14,8 @@ selectedType: any
 selectedData: any
 
 @Input() filterOption: number;
-  @Input() x: any;
+  @Input() dataSearchs:any = [ {key: "Terminal ID", value: ""},{key: "Ezy Code", value: ""},{key: "Name", value: ""},{key: "Description", value: ""},]
+  @Input() dataSearchsTrans: any=[{key: "Transaction Number", value: ""},{key: "Request Type", value: ""},{key: "Request Ref Number", value: ""},{key: "Created By", value: ""},{key: "Polyclinic", value: ""},{key: "End By", value: ""},{key: "Ended Reason", value: ""}]
   @Input() typeTerminal:any;
   @Input() onlineStatus:any;
   @Input() statusData:any;
@@ -20,80 +23,61 @@ selectedData: any
   @Output() filterTypeTerminals: EventEmitter<any> = new EventEmitter<any>()
   @Output() filterStatusDatas: EventEmitter<any> = new EventEmitter<any>()
 
-  @Output() filterIds: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterCodes: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterDess: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterNames: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterTransNs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterRequestNs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterRequestTs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterCreateBs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterEndBs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterEndRs: EventEmitter<any> = new EventEmitter<any>()
-  @Output() filterPolyclinics: EventEmitter<any> = new EventEmitter<any>()
+  @Output() valueSearchTChanges: EventEmitter<any> = new EventEmitter<any>()
+  @Output() valueSearchTrChanges: EventEmitter<any> = new EventEmitter<any>()
+
 public option: number;
 public terminal: string
 public oStatus: string;
 public sData: string
 
   constructor() {
+
+
+    this.valueSearchTChange= _.debounce(this.valueSearchTChange,400)
+    this.valueSearchTrChange= _.debounce(this.valueSearchTrChange,400)
   }
 
   ngOnInit() {
+   
   }
 
-  ngOnChanges(changes: SimpleChanges):void {
-    console.log(changes)
+  ngOnChanges(changes: SimpleChanges):void{
     if (changes['filterOption'] && changes['filterOption'].currentValue){
 this.option=this.filterOption
-    }
-
-
+console.log(this.option)
 
     }
-    public filterTransN(x:any):void{
-      this.filterTransNs.emit(x)}
-
-      public filterRequestN(x:any):void{
-        this.filterRequestNs.emit(x)}
-
-        public filterRequestT(x:any):void{
-          this.filterRequestTs.emit(x)}
-
-          public filterCreateB(x:any):void{
-            this.filterCreateBs.emit(x)}
-
-            public filterEndB(x:any):void{
-              this.filterEndBs.emit(x)}
-
-              public filterEndR(x:any):void{
-                this.filterEndRs.emit(x)}
-
-                public filterPolyclinic(x:any):void{
-                  this.filterPolyclinics.emit(x)}
-
-                  public filterId(x:any):void{
-                    this.filterIds.emit(x)}     
-
-                    public filterName(x:any):void{
-                      this.filterNames.emit(x)}
-
-                      public filterCode(x:any):void{
-                        this.filterCodes.emit(x)}
-
-                        public filterDes(x:any):void{
-                          this.filterDess.emit(x)}
 
 
 
-                          public filterOnlineStatus(x):void{
-                            this.filterOnlineStatuss.emit(x)
-                          }
-                          public filterTypeTerminal(x):void{
-                            this.filterTypeTerminals.emit(x)
-                          }
-                          public filterStatusData(x):void{
-                            this.filterStatusDatas.emit(x)
-                          }
+    }
+public valueSearchTChange(e:any):void{
+this.dataSearchs.forEach(element => {
+  if (element.key===e.target.placeholder){
+    element.value=e.target.value
+  }  
+});
+this.valueSearchTChanges.emit(this.dataSearchs)
+
+}
+
+public valueSearchTrChange(e:any):void{
+  this.dataSearchsTrans.forEach(element => {
+    if (element.key===e.target.placeholder){
+      element.value=e.target.value
+    }  
+  });
+  this.valueSearchTrChanges.emit(this.dataSearchsTrans)
+  
+  }
+
+
+      public filterOnlineStatus(x:any):void{
+           this.filterOnlineStatuss.emit(x) }
+      public filterTypeTerminal(x:any):void{
+           this.filterTypeTerminals.emit(x) }
+      public filterStatusData(x:any):void{
+           this.filterStatusDatas.emit(x)   }
 
   }

@@ -23,6 +23,7 @@ export class TransactionComponent implements OnInit {
     public total: number;
     public perPage:number = 15;
     public current:number = 1;
+    dataSearchsTrans: any=[{key: "Transaction Number", value: ""},{key: "Request Type", value: ""},{key: "Request Ref Number", value: ""},{key: "Created By", value: ""},{key: "Polyclinic", value: ""},{key: "End By", value: ""},{key: "Ended Reason", value: ""}]
     value1='';
     value2='';
     value3='';
@@ -361,8 +362,8 @@ public switch(perPage:number):void{
 
 
   
-filterTransN(x):void{
-  this.value1=x.target.value;
+filterTransN():void{
+  this.value1=this.dataSearchsTrans[0].value;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
@@ -439,8 +440,8 @@ filterTransN(x):void{
 
 }
 
-filterRequestT(x):void{
-  this.value2=x.target.value;
+filterRequestT():void{
+  this.value2=this.dataSearchsTrans[1].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
@@ -512,8 +513,8 @@ filterRequestT(x):void{
 
 
 }
-filterRequestN(x):void{
-  this.value3=x.target.value;
+filterRequestN():void{
+  this.value3=this.dataSearchsTrans[2].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
@@ -584,8 +585,8 @@ filterRequestN(x):void{
 
 
 }
-filterCreateB(x):void{
-  this.value4=x.target.value;
+filterCreateB():void{
+  this.value4=this.dataSearchsTrans[3].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
@@ -658,8 +659,8 @@ else{
 
 
 }
-filterPolyclinic(x):void{
-  this.value5=x.target.value;
+filterPolyclinic():void{
+  this.value5=this.dataSearchsTrans[4].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
@@ -730,8 +731,8 @@ filterPolyclinic(x):void{
 
 
 }
-filterEndB(x):void{
-  this.value6=x.target.value;
+filterEndB():void{
+  this.value6=this.dataSearchsTrans[5].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;
@@ -805,8 +806,8 @@ filterEndB(x):void{
 
 
 }
-filterEndR(x):void{
-  this.value7=x.target.value;
+filterEndR():void{
+  this.value7=this.dataSearchsTrans[6].value;;
   this.current=1
   this.perPage=this.perPage
   var initialUrl=`api/transaction/get-transactions?PageNumber=1&Take=`+this.perPage+`&Filter=[`;

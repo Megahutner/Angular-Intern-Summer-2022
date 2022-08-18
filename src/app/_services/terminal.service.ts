@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TerminalService {
-  //private url = 'http://vendingmachine-api.dotnet.speranzainc.net/api/terminal/get-terminals?PageNumber=1&Take=10';
-  //private terminalUrl='http://vendingmachine-api.dotnet.speranzainc.net/api/terminal/get-terminals?PageNumber=4&Take=1';
+
 
 
   public token: string;
@@ -33,7 +32,6 @@ export class TerminalService {
    
       return await this.getUrl().then(res => {
         return this.http.get<any>(this.url + api, this.GetHeader()).toPromise().then(data => {
-     //  console.log(this.url+api)
           return data;
         });
       });      
@@ -92,7 +90,7 @@ export class TerminalService {
     return await this.getConfig().toPromise()
     .then(res => {
         this.url = res.serverApi;
-      //  this.url_image = res.serverImage
+    
         return res;
 
       });
@@ -102,7 +100,7 @@ export class TerminalService {
   }
   
    getTerminals(){
-     // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
+
 
 
      return this.Get(`api/terminal/get-terminals`);
@@ -111,7 +109,6 @@ export class TerminalService {
     return this.Get('api/polyclinic/get-polyclinic-basic-data');
   }
    getTransactions(){
-     // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
 
 
      return this.Get(`api/transaction/get-transactions`);
@@ -126,38 +123,25 @@ export class TerminalService {
    }
 
    getTransactions1(pageNumber: any, pageSize: any){
-    // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
 
 
     return this.Get(`api/transaction/get-transactions?PageNumber=`+pageNumber+`&Take=`+pageSize);
   }
   getTerminals1(pageNumber: any, pageSize: any){
-    // return this.httpClient.get(this.terminalUrl,{headers:{'Authorization':`${this.token}`}})
 
 
     return this.Get(`api/terminal/get-terminals?PageNumber=`+pageNumber+`&Take=`+pageSize);
   }
   getFilterTransactions(value:string,pageNumber: any, pageSize: any){
 console.log(value)
-
-
-    //return this.Get(`api/transaction/get-transactions?Filter=["TranNo","contains","`+value+`"],"or",["RequestType","contains","`+value+`"][,"or",["RequestRefNo","contains","`+value+`"],"or",["Polyclinic","contains","`+value+`"],"or",["EndedReason","contains","`+value+`"],"or",["CreateBy","contains","`+value+`"],"or",["EndBy","contains","`+value+`"]]`);
-    //return this.Get(`api/transaction/get-transactions?Filter=[["TranNo","contains","`+value+`"],"or",["Id","contains","`+value+`"]]`);
     return this.Get(`api/transaction/get-transactions?PageNumber=`+pageNumber+`&Take=`+pageSize+`&Filter=[["TranNo","contains","`+value+`"],"or",["RequestRefNo","contains","`+value+`"]`);
-
   }
 
-  getFilterTransactions1(filterUrl:string){
-    console.log(filterUrl)
-    
-    
-        //return this.Get(`api/transaction/get-transactions?Filter=["TranNo","contains","`+value+`"],"or",["RequestType","contains","`+value+`"][,"or",["RequestRefNo","contains","`+value+`"],"or",["Polyclinic","contains","`+value+`"],"or",["EndedReason","contains","`+value+`"],"or",["CreateBy","contains","`+value+`"],"or",["EndBy","contains","`+value+`"]]`);
-        //return this.Get(`api/transaction/get-transactions?Filter=[["TranNo","contains","`+value+`"],"or",["Id","contains","`+value+`"]]`);
+  getFilterTransactions1(filterUrl:string){    
         return this.Get(filterUrl);
     
       }
       getFilterTerminals1(filterUrl:string){
-        console.log(filterUrl)
         return this.Get(filterUrl);
 
       }

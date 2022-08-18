@@ -8,7 +8,7 @@
       
         <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterTransN($event)" 
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[0].key}}" (keyup)="valueSearchTrChange($event)" 
         matInput ></div>
        
       
@@ -18,48 +18,48 @@
     <th style="width:7.24% ;	border: 1px solid #cec9c9;
     " class="th1">            <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" 
-        matInput (keyup)="filterRequestT($event)"></div>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" placeholder="{{dataSearchsTrans[1].key}}"
+        matInput (keyup)="valueSearchTrChange($event)"></div>
 
       
     </th>
     <th style="width:10.25%;	border: 1px solid #cec9c9;
     "class="th1">            <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-        matInput (keyup)="filterRequestN($event)" ></div>
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[2].key}}"
+        matInput (keyup)="valueSearchTrChange($event)" ></div>
 
       
     </th>
     <th style="width:6.1%;	border: 1px solid #cec9c9;
     " class="th1">            <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-        matInput (keyup)="filterCreateB($event)"></div>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  placeholder="{{dataSearchsTrans[3].key}}"
+        matInput (keyup)="valueSearchTrChange($event)"></div>
 
       
     </th>
     <th style="width:6%;	border: 1px solid #cec9c9;
     " class="th1">            <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-        matInput (keyup)="filterPolyclinic($event)"></div>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[4].key}}"
+        matInput (keyup)="valueSearchTrChange($event)"></div>
 
       
     </th>
     <th style="width:6.05%;	border: 1px solid #cec9c9;
     "class="th1">             <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-        matInput (keyup)="filterEndB($event)"></div>
+        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[5].key}}"
+        matInput (keyup)="valueSearchTrChange($event)"></div>
 
       
     </th>
     <th [width]="100" class="th1" style="border: 1px solid #cec9c9;;border-right: none;">
       <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-        matInput (keyup)="filterEndR($event)"></div>
+        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"placeholder="{{dataSearchsTrans[6].key}}"
+        matInput (keyup)="valueSearchTrChange($event)"></div>
       
     </th>
   </table>  
@@ -74,7 +74,7 @@
       
         <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterId($event)"
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[0].key}}"  (keyup)="valueSearchTChange($event)"
         matInput ></div>
        
       
@@ -86,7 +86,7 @@
       
         <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterCode($event)"
+        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[1].key}}" (keyup)="valueSearchTChange($event)"
         matInput ></div>
        
       
@@ -98,7 +98,7 @@
       
         <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" (keyup)="filterName($event)"
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[2].key}}" (keyup)="valueSearchTChange($event)"
         matInput ></div>
        
       
@@ -110,7 +110,7 @@
       
         <div style="width:100%">
         <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterDes($event)"
+        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[3].key}}" (keyup)="valueSearchTChange($event)"
         matInput ></div>
        
       

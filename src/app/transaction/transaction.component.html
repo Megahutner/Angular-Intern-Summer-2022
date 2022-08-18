@@ -73,14 +73,15 @@
 
       <filter-component
       [filterOption]="this.filterOption"
-      [x]="x"
-      (filterTransNs)="filterTransN($event)"
-      (filterRequestNs)="filterRequestN($event)"
-      (filterRequestTs)="filterRequestT($event)"
-      (filterCreateBs)="filterCreateB($event)"
-      (filterEndBs)="filterEndB($event)"
-      (filterEndRs)="filterEndR($event)"
-      (filterPolyclinics)="filterPolyclinic($event)"
+      
+      [dataSearchsTrans]="this.dataSearchsTrans"
+      (valueSearchTrChanges)="filterTransN()"
+      (valueSearchTrChanges)="filterRequestN()"
+      (valueSearchTrChanges)="filterRequestT()"
+      (valueSearchTrChanges)="filterCreateB()"
+      (valueSearchTrChanges)="filterEndB()"
+      (valueSearchTrChanges)="filterEndR()"
+      (valueSearchTrChanges)="filterPolyclinic()"
       ></filter-component>
      
   <dx-data-grid

@@ -16,14 +16,15 @@
            <!--<button mat-raised-button color="primary"><mat-icon>note_add</mat-icon></button> -->
           </dx-button></li></ul></nav> 
           <filter-component
+          [dataSearchs]="this.dataSearchs"
           [filterOption]="this.filterOption"
 [statusData]="statusData"
 [onlineStatus]="onlineStatus"
      [typeTerminal]="typeTerminal"
-     (filterIds)="filterId($event)"
-     (filterNames)="filterName($event)"
-     (filterCodes)="filterCode($event)"
-     (filterDess)="filterDes($event)"
+     (valueSearchTChanges)="filterId()"
+     (valueSearchTChanges)="filterCode()"
+     (valueSearchTChanges)="filterName()"
+     (valueSearchTChanges)="filterDes()"
      (filterOnlineStatuss)="filterOnlineStatus($event)"
      (filterTypeTerminals)="filterTypeTerminal($event)"
      (filterStatusDatas)="filterStatusData($event)"
