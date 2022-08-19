@@ -29,18 +29,13 @@ public totalRecords: number
   public perPage:number = 10;
   special:string="Special"
   currentTerminal: any;
-  popupTerminalVisible: boolean = false;
+  popupTerminalVisible: boolean;
   isUpdate: boolean=false;
   refreshMode:string;
+  filterState: boolean = false;
   x:any;
+  filterUrl='';
     requestUrl='';
-  value1='';
-    value2='';
-    value3='';
-    value4='';
-    value5:any;
-    value6:any;
-    value7:any;
     url1='';
     url2='';
     url3='';
@@ -67,19 +62,12 @@ typeTerminal = [
   {Id: -1, Name: "(All)"},
   {Id: 0, Name: "Standard"},
   {Id: 1, Name: "Special"}]
-  dataSearchs:any = [ {key: "Terminal ID", value: ""},{key: "Ezy Code", value: ""},{key: "Name", value: ""},{key: "Description", value: ""}]
-//  public total: number= 72
-  // readonly allowedPageSizes =[5,10,15,'all'];
-  // readonly displayModes=[{ text:"Display Mode 'full'",value:'full'},{text:"Display Mode 'compact'",value:'compact'}];
-  // displayMode='full';
-  // showPageSizeSelector = true;
-  // showInfo = true;
-  // showNavButtons = true;
-  // customizeColumns(columns){
-  //   columns[0].width = 70;
-  // }
-  // get isCompactMode(){
-  //   return this.displayMode === 'compact'
+  dataSearchs:any = [ {key: "TerminalId", label: "Terminal Id", value: "", type: "contains"},{key: "EzyCode",label:"EzyCode", value: "",type: "contains"},{key: "Name",label:"Name", value: "",type: "contains"},{key: "Description",label:"Description", value: "",type: "contains"}, {key: "IsOnline", value: "", type:"=",valueSelect:[{Id:'-1', Name:"(All)"},{Id:'0', Name:"Unknown"},{Id:'1',Name:"Online"}]},{key: "Status", value: "", type:"=", valueSelect:[{Id:'-1',Name:"(All)"},{Id:'0',Name:"Disabled"},{Id:'1', Name:"Active"}]},{key: "Type", value: "", type:"=",valueSelect:[{Id: '-1', Name: "(All)"},{Id: '0', Name: "Standard"},{Id: '1', Name: "Special"}]}]
+  dataFilter:any = [ {key: "Terminal ID", value: ""},{key: "Ezy Code", value: ""},{key: "Name", value: ""},{key: "Description", value: ""}]
+  dataSelect: any=[{key: "IsOnline", value: "-1"},{key: "Status", value: "-1"},{key: "Type", value: "-1"},]
+  dataSelectFilter: any=[{key: "IsOnline", value: "-1"},{key: "Status", value: "-1"},{key: "Type", value: "-1"},]
+
+
   // }
   min1 = -40;
   max1 = 84;
@@ -98,14 +86,7 @@ typeTerminal = [
     terminals: any;
     transactions: any;
     constructor(private accountService: UserService, private terS: TerminalService,private router: Router, private activatedRoute: ActivatedRoute) {
-        // this.statusType=this.typeS.getStatus();
-        // this.typeID=this.typeS.getType();
-        // this.onlineStatus=this.typeS.getOnlineStatus();
-          
-        //   this.terS.getTransactions().then(trans=>{
-        //     this.transactions = trans.data.transaction;
-        // //    console.log(this.transactions)
-        //   });
+       
           
         this.edit=this.edit.bind(this);
 
@@ -129,25 +110,12 @@ typeTerminal = [
             this.terminals = ter.data.terminal;
             this.totalRecords = ter.data.meta.TotalRecords
             this.total = Math.ceil(this.totalRecords/this.perPage)
-           // console.log(this.terminals.length)
-
-            //console.log(this.perPage)
-
-
-            //this.terminalsToDisplay=this.paginate(this.current,this.perPage)
+          
           })
-            // this.gridListCollectionLog.instance.clearFilter();
-            // this.gridListCollectionLog.instance.clearSorting();
-            // this.gridListCollectionLog.instance.refresh();
-            console.log(this.popupTerminalVisible)
+        
     }
    
-  //   refreshComponent(){
-  //     this.router.navigate([this.router.url])
-  //  }
-    // changeFromParent(){
-    //   this.data +=1;
-    // }
+ 
     Add(){
       this.currentTerminal = {
         Name: "",
@@ -169,9 +137,6 @@ typeTerminal = [
 
       this.currentTerminal=e.row.data;
       this.isUpdate= true;
-      console.log(this.currentTerminal);
-
-
     }
    
 
@@ -192,41 +157,17 @@ typeTerminal = [
       this.current = page
       this.perPage=this.perPage
       this.total=this.total
-      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-     
-      this.requestUrl=initialUrl
-      if (this.value1!=''){
-        this.requestUrl=this.requestUrl+this.url1
+      this.requestUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage
+      if(this.filterState=true){
+this.requestUrl=this.requestUrl +this.filterUrl
       }
-      if (this.value2!=''){
-        this.requestUrl=this.requestUrl+this.url2
-      }
-      if (this.value3!=''){
-        this.requestUrl=this.requestUrl+this.url3
-      }
-      if (this.value4!=''){
-        this.requestUrl=this.requestUrl+this.url4
-      }
-      if (this.value5!='-1'){
-        this.requestUrl=this.requestUrl+this.url5
-      }
-      if (this.value6!='-1'){
-        this.requestUrl=this.requestUrl+this.url6
-      }
-      if (this.value7!='-1'){
-        this.requestUrl=this.requestUrl+this.url7
-      }
+      console.log(this.requestUrl)
       this.terS.getFilterTerminals1(this.requestUrl).then(ters=>{
         this.terminals = ters.data.terminal;})
+     
+      
     }
-    // public onNext(page:number): void{
-    //   this.current = page +1
-    //   this.terminalsToDisplay= this.paginate(this.current,this.perPage)
-    // }
-    // public onPrevious(page:number): void{
-    //   this.current = page-1
-    //   this.terminalsToDisplay= this.paginate(this.current,this.perPage)
-    // }
+    
     deleteTerminal(e:any){
       console.log(e.data.Id)
       this.terS.deleteTerminal(e.data.Id).then(res=>{
@@ -253,33 +194,14 @@ typeTerminal = [
       }, status, 2000);
     }
 public switch(perPage:number):void{
-  this.perPage =perPage
-  this.total= Math.floor(this.totalRecords/this.perPage)+1
-  this.current=1
-  var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-     
-      this.requestUrl=initialUrl
-      if (this.value1!=''){
-        this.requestUrl=this.requestUrl+this.url1
+  this.current = 1
+      this.perPage=perPage
+      this.total= Math.floor(this.totalRecords/this.perPage)+1
+      this.requestUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage
+      if(this.filterState=true){
+this.requestUrl=this.requestUrl +this.filterUrl
       }
-      if (this.value2!=''){
-        this.requestUrl=this.requestUrl+this.url2
-      }
-      if (this.value3!=''){
-        this.requestUrl=this.requestUrl+this.url3
-      }
-      if (this.value4!=''){
-        this.requestUrl=this.requestUrl+this.url4
-      }
-      if (this.value5!='-1'){
-        this.requestUrl=this.requestUrl+this.url5
-      }
-      if (this.value6!='-1'){
-        this.requestUrl=this.requestUrl+this.url6
-      }
-      if (this.value7!='-1'){
-        this.requestUrl=this.requestUrl+this.url7
-      }
+      console.log(this.requestUrl)
       this.terS.getFilterTerminals1(this.requestUrl).then(ters=>{
         this.terminals = ters.data.terminal;})
 }
@@ -415,534 +337,95 @@ public switch(perPage:number):void{
     }}
 
 
-    filterId():void{
-      this.value1=this.dataSearchs[0].value
+    filter():void{
+      this.filterState=true
       this.current=1
-      this.perPage=this.perPage
-      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-      if(this.value1 != '' ){
-        var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-    
-    
-    
-        this.url1= ',"or",["TerminalId","contains","'+this.value1+'"]';
-        this.requestUrl=initialUrl + this.url1
-        if(this.value2!=''){
-          this.requestUrl=this.requestUrl+this.url2
-        }
-        if(this.value3!=''){
-          this.requestUrl=this.requestUrl+this.url3
-        }
-        if(this.value4!=''){
-          this.requestUrl=this.requestUrl+this.url4
-        }
-        if(this.value5!='-1'){
-          this.requestUrl=this.requestUrl+this.url5
-        }
-        if(this.value6!='-1'){
-          this.requestUrl=this.requestUrl+this.url6
-        }
-        if(this.value7!='-1'){
-          this.requestUrl=this.requestUrl+this.url7
-        }
-        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-          this.total = Math.ceil(this.totalRecords/this.perPage)
-          this.terminals = terF.data.terminal 
-    
-        })
-      }
-      else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-        this.terS.getTerminals1(1,this.perPage).then(ter=>{
-          this.terminals = ter.data.terminal;
-          this.totalRecords = ter.data.meta.TotalRecords
-          this.total = Math.ceil(this.totalRecords/this.perPage)})
-    
-      }
-      else{
-        this.requestUrl=initialUrl
-        if(this.value2!=''){
-          this.requestUrl=this.requestUrl+this.url2
-        }
-        if(this.value3!=''){
-          this.requestUrl=this.requestUrl+this.url3
-        }
-        if(this.value4!=''){
-          this.requestUrl=this.requestUrl+this.url4
-        }
-        if(this.value5!='-1'){
-          this.requestUrl=this.requestUrl+this.url5
-        }
-        if(this.value6!='-1'){
-          this.requestUrl=this.requestUrl+this.url6
-        }
-        if(this.value7!='-1'){
-          this.requestUrl=this.requestUrl+this.url7
-        }
-     
-        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-          this.total = Math.ceil(this.totalRecords/this.perPage)
-          this.terminals = terF.data.terminal 
-    
-        })
-      }}
-      filterCode():void{
-        
-      
-        this.value2=this.dataSearchs[1].value
-
-        this.current=1
-        this.perPage=this.perPage
-        var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-        if(this.value2 != '' ){
-      
-      
-      
-          this.url2= ',"or",["EzyCode","contains","'+this.value2+'"]';
-          this.requestUrl=initialUrl + this.url2
-          if(this.value1!=''){
-            this.requestUrl=this.requestUrl+this.url1
-          }
-          if(this.value3!=''){
-            this.requestUrl=this.requestUrl+this.url3
-          }
-          if(this.value4!=''){
-            this.requestUrl=this.requestUrl+this.url4
-          }
-          if(this.value5!='-1'){
-            this.requestUrl=this.requestUrl+this.url5
-          }
-          if(this.value6!='-1'){
-            this.requestUrl=this.requestUrl+this.url6
-          }
-          if(this.value7!='-1'){
-            this.requestUrl=this.requestUrl+this.url7
-          }
-          this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-            this.total = Math.ceil(this.totalRecords/this.perPage)
-            this.terminals = terF.data.terminal 
-      
-          })
-        }
-        else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''){
-          this.terS.getTerminals1(1,this.perPage).then(ter=>{
-            this.terminals = ter.data.terminal;
-            this.totalRecords = ter.data.meta.TotalRecords
-            this.total = Math.ceil(this.totalRecords/this.perPage)})
-      
-        }
-        else{
-          this.requestUrl=initialUrl
-          if(this.value1!=''){
-            this.requestUrl=this.requestUrl+this.url1
-          }
-          if(this.value3!=''){
-            this.requestUrl=this.requestUrl+this.url3
-          }
-          if(this.value4!=''){
-            this.requestUrl=this.requestUrl+this.url4
-          }
-          if(this.value5!='-1'){
-            this.requestUrl=this.requestUrl+this.url5
-          }
-          if(this.value6!='-1'){
-            this.requestUrl=this.requestUrl+this.url6
-          }
-          if(this.value7!='-1'){
-            this.requestUrl=this.requestUrl+this.url7
-          }
+      this.perPage
+      // this.dataFilter.forEach((element,index) => {
        
-          this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-            this.total = Math.ceil(this.totalRecords/this.perPage)
-            this.terminals = terF.data.terminal 
-      
-          })
-        }}
-        filterName():void{
-          this.value3=this.dataSearchs[2].value
+      //   if (element.key===this.dataSearchs[index].key){
+      //     element.value = this.dataSearchs[index].value
+      //     }
 
-          this.current=1
-          this.perPage=this.perPage
-          var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-          if(this.value3 != '' ){
-          
-        
-        
-        
-            this.url3= ',"or",["Name","contains","'+this.value3+'"]';
-            this.requestUrl=initialUrl + this.url3
-            if(this.value2!=''){
-              this.requestUrl=this.requestUrl+this.url2
-            }
-            if(this.value1!=''){
-              this.requestUrl=this.requestUrl+this.url1
-            }
-            if(this.value4!=''){
-              this.requestUrl=this.requestUrl+this.url4
-            }
-            if(this.value5!='-1'){
-              this.requestUrl=this.requestUrl+this.url5
-            }
-            if(this.value6!='-1'){
-              this.requestUrl=this.requestUrl+this.url6
-            }
-            if(this.value7!='-1'){
-              this.requestUrl=this.requestUrl+this.url7
-            }
-            console.log(this.requestUrl)
-            this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-              this.total = Math.ceil(this.totalRecords/this.perPage)
-              this.terminals = terF.data.terminal 
-        
-            })
-          }
-          else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-            this.terS.getTerminals1(1,this.perPage).then(ter=>{
-              console.log(ter)
-              this.terminals = ter.data.terminal;
-              this.totalRecords = ter.data.meta.TotalRecords
-              this.total = Math.ceil(this.totalRecords/this.perPage)})
-        
-          }
-          else{
-            this.requestUrl=initialUrl
-            
-            if(this.value2!=''){
-              this.requestUrl=this.requestUrl+this.url2
-            }
-            if(this.value1!=''){
-              this.requestUrl=this.requestUrl+this.url1
-            }
-            if(this.value4!=''){
-              this.requestUrl=this.requestUrl+this.url4
-            }
-            if(this.value5!='-1'){
-              this.requestUrl=this.requestUrl+this.url5
-            }
-            if(this.value6!='-1'){
-              this.requestUrl=this.requestUrl+this.url6
-            }
-            if(this.value7!='-1'){
-              this.requestUrl=this.requestUrl+this.url7
-            }
          
-            this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-              this.total = Math.ceil(this.totalRecords/this.perPage)
-              this.terminals = terF.data.terminal 
+      // })
+      // this.dataSelectFilter.forEach((element,index) => {
+       
+      //   if (element.key===this.dataSelect[index].key){
+      //     element.value = this.dataSelect[index].value
+      //     }
+
+         
+      // })
+      
+console.log(this.dataSearchs);
+      var requestUrlbefore=this.requestUrl
+      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage;
+
+      var filterUrl=`&Filter=[`
+
+      this.requestUrl=initialUrl
+      this.dataSearchs.forEach(element => {
+        if(element.value!='' &&element.value!='-1' ){
+          this.url1= ',"or",["' + element.key + '","'+ element.type +'","'+element.value+'"]'
+          filterUrl= filterUrl + this.url1
+        }
+      });
+      filterUrl += ']';
+      
+    //   if(this.dataFilter[0].value!=''){
+    //     this.url1= ',"or",["TerminalId","contains","'+this.dataFilter[0].value+'"]'
+    //     filterUrl= filterUrl + this.url1
+    //   }
+    //   if(this.dataFilter[1].value!=''){
+    //     this.url2= ',"or",["EzyCode","contains","'+this.dataFilter[1].value+'"]'
+    //     filterUrl= filterUrl + this.url2
+    //   }
+    //   if(this.dataFilter[2].value!=''){
+    //     this.url3= ',"or",["Name","contains","'+this.dataFilter[2].value+'"]'
+    //     filterUrl= filterUrl + this.url3
+    //   }
+    //   if(this.dataFilter[3].value!=''){
+    //     this.url4= ',"or",["Description","contains","'+this.dataFilter[3].value+'"]'
+    //     filterUrl= filterUrl + this.url4
+    //   }
+    //   if(this.dataSelectFilter[0].value!='-1'){
+    //     this.url5= ',"or",["IsOnline","=","'+this.dataSelectFilter[0].value+'"]'
+    //     filterUrl= filterUrl + this.url5
+
+    //   }
+    //   if(this.dataSelectFilter[1].value!='-1'){
+    //     this.url6= ',"or",["Status","=","'+this.dataSelectFilter[1].value+'"]'
+    //     filterUrl= filterUrl + this.url6
+
+    //   }
+    //   if(this.dataSelectFilter[2].value!='-1'){
+    //     this.url7= ',"or",["Type","=","'+this.dataSelectFilter[2].value+'"]'
+    //     filterUrl= filterUrl + this.url7
+
+    //   }
+      this.filterUrl=filterUrl
+      this.requestUrl=initialUrl+filterUrl
+      console.log(this.requestUrl)
+    //   if(this.dataFilter[0].value=='' && this.dataFilter[1].value==''&& this.dataFilter[2].value==''&& this.dataFilter[3].value=='' && this.dataSelectFilter[0].value=='-1'&& this.dataSelectFilter[1].value=='-1'&& this.dataSelectFilter[2].value=='-1'){
+    //    this.requestUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage
+    //    this.filterState=false
+    //   }
+    //   if(requestUrlbefore==this.requestUrl){
+    //     return;
+    //   }
+    //   this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+    //     this.total = Math.ceil(this.totalRecords/this.perPage)
+    //     this.terminals = terF.data.terminal })
         
-            })
-          }}
+      
+    // }
 
-
-
-
-          filterDes():void{
-            this.value4=this.dataSearchs[3].value
-            
-      this.current=1
-      this.perPage=this.perPage
-      var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-      if(this.value4 != '' ){
-        
-        
-    
-    
-    
-        this.url4= ',"or",["Description","contains","'+this.value4+'"]';
-        this.requestUrl=initialUrl + this.url4
-        if(this.value2!=''){
-          this.requestUrl=this.requestUrl+this.url2
-        }
-        if(this.value3!=''){
-          this.requestUrl=this.requestUrl+this.url3
-        }
-        if(this.value1!=''){
-          this.requestUrl=this.requestUrl+this.url1
-        }
-        if(this.value5!='-1'){
-          this.requestUrl=this.requestUrl+this.url5
-        }
-        if(this.value6!='-1'){
-          this.requestUrl=this.requestUrl+this.url6
-        }
-        if(this.value7!='-1'){
-          this.requestUrl=this.requestUrl+this.url7
-        }
-        console.log(this.requestUrl)
-        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-          this.total = Math.ceil(this.totalRecords/this.perPage);
-          this.terminals = terF.data.terminal;
-    
-        })
-      }
-      else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-        console.log(this.requestUrl)
-
-        this.terS.getTerminals1(1,this.perPage).then(ter=>{
-          this.terminals = ter.data.terminal;
-          this.totalRecords = ter.data.meta.TotalRecords;
-          this.total = Math.ceil(this.totalRecords/this.perPage);})
-    
-      }
-      else{
-        this.requestUrl=initialUrl
-        if(this.value2!=''){
-          this.requestUrl=this.requestUrl+this.url2
-        }
-        if(this.value3!=''){
-          this.requestUrl=this.requestUrl+this.url3
-        }
-        if(this.value1!=''){
-          this.requestUrl=this.requestUrl+this.url1
-        }
-        if(this.value5!='-1'){
-          this.requestUrl=this.requestUrl+this.url5
-        }
-        if(this.value6!='-1'){
-          this.requestUrl=this.requestUrl+this.url6
-        }
-        if(this.value7!='-1'){
-          this.requestUrl=this.requestUrl+this.url7
-        }
-        console.log(this.requestUrl)
-
-        this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
+    this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
           this.total = Math.ceil(this.totalRecords/this.perPage)
-          this.terminals = terF.data.terminal 
-    
-        })
-      }}
-            filterOnlineStatus(x):void{
-
-            this.value5=x.target.value;
-            this.current=1
-            this.perPage=this.perPage
-            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-            if(this.value5 != '-1' ){
-             
-          
-          
-          
-              this.url5= ',"or",["IsOnline","=","'+this.value5+'"]';
-              this.requestUrl=initialUrl + this.url5
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-              if(this.value6!='-1'){
-                this.requestUrl=this.requestUrl+this.url6
-              }
-              if(this.value7!='-1'){
-                this.requestUrl=this.requestUrl+this.url7
-              }
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-              this.terS.getTerminals1(1,this.perPage).then(ter=>{
-                this.terminals = ter.data.terminal;
-                this.totalRecords = ter.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)})
-          
-            }
-            else{
-              this.requestUrl=initialUrl
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-              if(this.value6!='-1'){
-                this.requestUrl=this.requestUrl+this.url6
-              }
-              if(this.value7!='-1'){
-                this.requestUrl=this.requestUrl+this.url7
-              }
-           
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-          
-          
-           }
-
-
-
-
-
-
-            filterStatusData(x):void{
-              this.value6=x.target.value;
-            this.current=1
-            this.perPage=this.perPage
-            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-            if(this.value6 != '-1' ){
-              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-          
-          
-          
-              this.url6= ',"or",["Status","=","'+this.value6+'"]';
-              this.requestUrl=initialUrl + this.url6
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value5!='-1'){
-                this.requestUrl=this.requestUrl+this.url5
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-              if(this.value7!='-1'){
-                this.requestUrl=this.requestUrl+this.url7
-              }
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-              this.terS.getTerminals1(1,this.perPage).then(ter=>{
-                this.terminals = ter.data.terminal;
-                this.totalRecords = ter.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)})
-          
-            }
-            else{
-              this.requestUrl=initialUrl
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value5!='-1'){
-                this.requestUrl=this.requestUrl+this.url5
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-              if(this.value7!='-1'){
-                this.requestUrl=this.requestUrl+this.url7
-              }
-           
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-              
-
-            }
-            filterTypeTerminal(x):void{
-              this.value7=x.target.value;
-            this.current=1
-            this.perPage=this.perPage
-            var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-            if(this.value7 != '-1' ){
-              var initialUrl=`api/terminal/get-terminals?PageNumber=`+this.current+`&Take=`+this.perPage+`&Filter=[`;
-          
-          
-          
-              this.url7= ',"or",["Type","=","'+this.value7+'"]';
-              this.requestUrl=initialUrl + this.url7
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value5!='-1'){
-                this.requestUrl=this.requestUrl+this.url5
-              }
-              if(this.value6!='-1'){
-                this.requestUrl=this.requestUrl+this.url6
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-            else if(this.value1=='' && this.value2==''&& this.value3==''&& this.value4==''&& this.value5=='-1'&& this.value6=='-1'&& this.value7=='-1'){
-              this.terS.getTerminals1(1,this.perPage).then(ter=>{
-                this.terminals = ter.data.terminal;
-                this.totalRecords = ter.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)})
-          
-            }
-            else{
-              this.requestUrl=initialUrl
-              if(this.value2!=''){
-                this.requestUrl=this.requestUrl+this.url2
-              }
-              if(this.value3!=''){
-                this.requestUrl=this.requestUrl+this.url3
-              }
-              if(this.value1!=''){
-                this.requestUrl=this.requestUrl+this.url1
-              }
-              if(this.value5!='-1'){
-                this.requestUrl=this.requestUrl+this.url5
-              }
-              if(this.value6!='-1'){
-                this.requestUrl=this.requestUrl+this.url6
-              }
-              if(this.value4!=''){
-                this.requestUrl=this.requestUrl+this.url4
-              }
-           
-              this.terS.getFilterTerminals1(this.requestUrl).then(terF=>{  this.totalRecords = terF.data.meta.TotalRecords
-                this.total = Math.ceil(this.totalRecords/this.perPage)
-                this.terminals = terF.data.terminal 
-          
-              })
-            }
-           
-
-            }
-    
-
-   
-    
-    
-    
+          this.terminals = terF.data.terminal })
+    }
+      
 }
 @NgModule({
     imports: [

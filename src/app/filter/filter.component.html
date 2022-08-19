@@ -1,4 +1,4 @@
-<table *ngIf="this.option===1">
+<!-- <table *ngIf="this.option===1" style="width:1655px">
     <th  class="th1" style="width:36.85%;border: 1px solid #cec9c9;border-left: none;">
       
     </th>
@@ -65,7 +65,7 @@
   </table>  
 
 
-  <table *ngIf="this.option===2">
+  <table *ngIf="this.option===2" style="width:1655px">
     <th  class="th1" style="width:6.1%;border: 1px solid #cec9c9;border-left: none;">
       
     </th>
@@ -118,7 +118,7 @@
       
     </th>
     <th  class="th1" style="width:9.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select  style="width:100% ;position: relative;border-color: #fff;outline:0;cursor: pointer;"  name="oStatus" [(value)]="selectedStatus" (change)="filterOnlineStatus($event)" >
+        <select  style="width:100% ;position: relative;border-color: #fff;outline:0;cursor: pointer;"  name="IsOnline" (change)="filterSelect($event)" >
         <option value ="" selected="selected" hidden="hidden">(All)</option>
           <option *ngFor="let oStatus of onlineStatus" [value]="oStatus.ID" >
           {{ oStatus.Name }}
@@ -126,7 +126,7 @@
           </select>
     </th>
     <th  class="th1" style="width:6.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select style="width:100%;position: relative;border-color: #fff;outline:0;cursor: pointer; "  name="terminal" (change)="filterTypeTerminal($event)">
+        <select style="width:100%;position: relative;border-color: #fff;outline:0;cursor: pointer; "  name="Type" (change)="filterSelect($event)">
           <option value ="" selected="selected" hidden="hidden">(All)</option>
           <option *ngFor="let terminal of typeTerminal" [value]="terminal.Id">
           {{ terminal.Name }}
@@ -134,17 +134,40 @@
           </select>
     </th>
     
-    <th  class="th1" [width]="100" style="border: 1px solid #cec9c9">
-        <select style="width:100%;border-color: #fff ;outline:0;cursor: pointer;" class="form-control" name="sData"  (change)="filterStatusData($event)" >
-          <option value ="" selected="selected" hidden="hidden">(All)</option>
-          <option *ngFor="let sData of statusData" [value]="sData.Id">
-          {{ sData.Name }}
-        </option>
-          </select>
-    </th>
+    
    
     
-  </table>  
+  </table>   -->
+  
 
+<div class="col-xs-3" *ngFor="let dataSearch of dataSearchs">
+  
+   
+    <span *ngIf="dataSearch.type=='contains'">
+     
+      <input style ="margin-top:10px;margin-bottom:10px; border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;height:35px;width: 100%;font-size:13px" [(ngModel)]="dataSearch.value" placeholder="{{dataSearch.label}}" (keyup)="valueSearchChange($event)"
+    matInput ></span>
 
+    <span *ngIf="dataSearch.type=='='">
+<select style="margin-top:10px;margin-bottom:10px" [(ngModel)]="dataSearch.value" (change)="valueSearchChange($event)" class="form-control">
+  <option value ="" selected="selected" hidden="hidden">(All)</option>
+  <option *ngFor="let sData of dataSearch.valueSelect" [ngValue]="sData.Id">
+  {{ sData.Name }}
+</option>
+</select>
+
+      </span>
+
+    
+    <!-- <div *ngif="dataSearch.type=='select'">
+      <select style="width:100%;border-color: #fff ;outline:0;cursor: pointer;" class="form-control" name="Status"  (change)="filterSelect($event)" >
+        <option value ="" selected="selected" hidden="hidden">(All)</option>
+        <option *ngFor="let sData of dataSearch.valueSelect" [value]="sData.Id">
+        {{ sData.Name }}
+      </option>
+        </select>
+    </div> -->
+</div>
   

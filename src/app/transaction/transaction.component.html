@@ -71,18 +71,12 @@
         </th>
       </table>    -->
 
-      <filter-component
-      [filterOption]="this.filterOption"
+       <filter-component
       
-      [dataSearchsTrans]="this.dataSearchsTrans"
-      (valueSearchTrChanges)="filterTransN()"
-      (valueSearchTrChanges)="filterRequestN()"
-      (valueSearchTrChanges)="filterRequestT()"
-      (valueSearchTrChanges)="filterCreateB()"
-      (valueSearchTrChanges)="filterEndB()"
-      (valueSearchTrChanges)="filterEndR()"
-      (valueSearchTrChanges)="filterPolyclinic()"
-      ></filter-component>
+      [dataSearchs]="this.dataSearchs"
+      (valueSearchChanges)="filter()"
+      
+      ></filter-component> 
      
   <dx-data-grid
             #grid 
@@ -153,7 +147,7 @@
         <dxi-column alignment="left" [width]="100" dataField ="EndBy" caption = "End By">
             
         </dxi-column>
-        <dxi-column alignment="left" [width]="100" dataField ="EndedReason" caption = "Ended Reason">
+        <dxi-column alignment="left" [width]="100" dataField ="EndedReason" caption = "End Reason">
             
         </dxi-column>
 

@@ -17,17 +17,9 @@
           </dx-button></li></ul></nav> 
           <filter-component
           [dataSearchs]="this.dataSearchs"
-          [filterOption]="this.filterOption"
-[statusData]="statusData"
-[onlineStatus]="onlineStatus"
-     [typeTerminal]="typeTerminal"
-     (valueSearchTChanges)="filterId()"
-     (valueSearchTChanges)="filterCode()"
-     (valueSearchTChanges)="filterName()"
-     (valueSearchTChanges)="filterDes()"
-     (filterOnlineStatuss)="filterOnlineStatus($event)"
-     (filterTypeTerminals)="filterTypeTerminal($event)"
-     (filterStatusDatas)="filterStatusData($event)"
+        
+     (valueSearchChanges)="filter()"
+    
       ></filter-component>
   <dx-data-grid 
  
@@ -43,7 +35,7 @@
             >
             <dxo-editing  
             [allowDeleting]="true"
-            [allowUpdating]="true"
+            [allowUpdating] ="true"
             
             [useIcons]="true">
         </dxo-editing>
