@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges, Output,EventEmitter, NgModule } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import * as _ from 'underscore';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import * as moment from 'moment';
+import { getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
 
 @Component({
   selector: 'filter-component',
@@ -10,7 +13,7 @@ export class FilterComponent implements OnInit {
   
 selectedStatus: any
 selectedType: any
-
+isOpened: boolean;
 selectedData: any
 
 @Input() filterOption: number;
@@ -18,6 +21,8 @@ selectedData: any
   // @Input() dataSearchsTrans: any=[{key: "Transaction Number", value: ""},{key: "Request Type", value: ""},{key: "Request Ref Number", value: ""},{key: "Created By", value: ""},{key: "Polyclinic", value: ""},{key: "End By", value: ""},{key: "Ended Reason", value: ""}]
   // @Input() dataSearchsTrans: any=[];
   // @Input() dataSelect: any=[{key: "IsOnline", value: "-1"},{key: "Status", value: "-1"},{key: "Type", value: "-1"},]
+icon:[{name:"fas fa-less-than-equal",value:"<"},{name:"fas fa-greater-than-equal",value:">"}]
+icon1:[{name:"<sdsds",value:"<"},{name:">dsds",value:">"}]
 
   
 
@@ -26,13 +31,42 @@ selectedData: any
   @Output() valueSearchChanges: EventEmitter<any> = new EventEmitter<any>()
   @Output() valueSearchTrChanges: EventEmitter<any> = new EventEmitter<any>()
 
+  typeButton: any;
 
 
   constructor() {
+    this.typeButton = {
+      icon: 'lessorequal',
+      value:"<=",
+      stylingMode: 'text',
+      width: 32,
+      elementAttr: {
+        class: 'type',
+      },
+      onClick: (e) => {
+        this.dataSearchs.forEach(element => {
+          
+          if(element.type==this.typeButton.value){
+            if (e.component.option('icon') === 'greaterorequal') {
+              e.component.option('icon', 'lessorequal');   
+              this.typeButton.value="<="
+              element.type = this.typeButton.value
+            } 
+            else 
+            {
+              e.component.option('icon', 'greaterorequal');
+              this.typeButton.value=">="
+              element.type = this.typeButton.value
+            }
+
+          }
+        })
+      },
+    };
 
 
-    // this.valueSearchTChange= _.debounce(this.valueSearchTChange,1000)
-    // this.valueSearchTrChange= _.debounce(this.valueSearchTrChange,1000)
+
+  
   }
 
   ngOnInit() {
@@ -47,34 +81,40 @@ selectedData: any
 
 
     }
+    addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+      console.log(moment(event.value).format("YYYY-MM-DD"))
+    }
+changeType(e:any){
+  if (e=="<="){
+    e=">=";
+    console.log("1")
+  }
+  if (e==">="){
+    e="<=";
+    console.log("2")
+  }
+}
 public valueSearchChange(e:any):void{
-// this.dataSearchs.forEach(element => {
-//   if (element.key===e.target.placeholder){
-//     element.value=e.target.value
-//   }  
-// });
+  console.log(this.dataSearchs)
+this.dataSearchs.forEach(element => {
+  if (element.type=="<=" || element.type==">=" && element.value ==''){
+    element.value=moment(element.value).format("YYYY-MM-DD")
+  }  
+  if ((element.type =="<=" || element.type == ">=") && element.value == "Invalid date"){
+    element.value = '';
+  }
+ 
+ });
+
+
+ 
 this.valueSearchChanges.emit(this.dataSearchs)
-// console.log(this.dataSearchs)
 }
 
-// public valueSearchTrChange(e:any):void{
-//   this.dataSearchsTrans.forEach(element => {
-//     if (element.key===e.target.placeholder){
-//       element.value=e.target.value
-//     }  
-//   });
-//   this.valueSearchTrChanges.emit(this.dataSearchsTrans)
-  
-//   }
 
 
         public filterSelect(e:any):void{
-          // this.dataSelect.forEach(element => {
-          //   if (element.key===e.target.name){
-          //     element.value=e.target.value
-          //   }  
-          // });
-          // this.filterSelects.emit(this.dataSelect) 
+          
         }
 
 

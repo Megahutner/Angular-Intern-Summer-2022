@@ -110,7 +110,7 @@ body {
 	transform: scale(1);
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
-	z-index: 5;
+	z-index: 1;
 	max-width: 330px;
 	margin-right: 250px;
 	
@@ -303,6 +303,7 @@ color:black }
   #gridContainer {
 	max-height: 1000px;
   }
-  
 
-  
+  ::ng-deep .mat-form-field-underline {
+    display: none;
+}

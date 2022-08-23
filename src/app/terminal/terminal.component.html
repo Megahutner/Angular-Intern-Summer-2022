@@ -5,7 +5,7 @@
             
           <li style="float:left"><h2>Terminal Info</h2></li>
           
-          <li style="float:right"><dx-button
+          <!-- <li style="float:right"><dx-button
             stylingMode="contained"
             text="Add Terminal"
             type="default"
@@ -13,18 +13,30 @@
             (onClick)="Add()"
           >
       
-           <!--<button mat-raised-button color="primary"><mat-icon>note_add</mat-icon></button> -->
-          </dx-button></li></ul></nav> 
-          <filter-component
+           <button mat-raised-button color="primary"><mat-icon>note_add</mat-icon></button> 
+          </dx-button></li>-->
+        </ul></nav>  
+<div id="filter" class="collapse">
+          <filter-component 
           [dataSearchs]="this.dataSearchs"
         
      (valueSearchChanges)="filter()"
     
       ></filter-component>
+    </div>
+      
+      
+
+
+    <buttongroup-component
+    [hasAdd]="hasAdd"
+    (Add)="Add()"
+    (Refresh)="Refresh()"
+    ></buttongroup-component>
   <dx-data-grid 
  
             #grid 
-            id="grid-container"
+            id="gridListCollectionLog"
             [dataSource]="terminals"
             keyExpr="Id"
             (onRowRemoved)="deleteTerminal($event)"
@@ -33,19 +45,17 @@
             style="width:100%"
             [showColumnLines]="true"
             >
+            
             <dxo-editing  
             [allowDeleting]="true"
-            [allowUpdating] ="true"
-            
             [useIcons]="true">
+            
         </dxo-editing>
             <dxi-column type="buttons"  [width]="100">
-              <dxi-button name="edit"  [onClick]="edit" ></dxi-button>
+              <dxi-button name="edit" [visible]="true"  [onClick]="editProcess" ></dxi-button>
               <dxi-button name="delete"></dxi-button>
           </dxi-column>
-          <!-- <dxi-column alignment="center" [width]="170" dataField ="Id" caption = "Id">
             
-          </dxi-column> -->
           <dxi-column alignment="left" [width]="200" dataField ="TerminalId" caption = "Terminal Id">
             
           </dxi-column>
@@ -81,12 +91,13 @@
   
   (switchs)="switch($event)"
 ></paging-component>
+</div>
           </div>
           
           <!-- <a (click)="changeFromParent()">Change from parent</a>
           <br/>
           <app-child [parentData]=data></app-child> -->
-        </div>
+        
 
         <dx-popup
         [dragEnabled]="true"
@@ -95,7 +106,9 @@
 
     [showTitle]="true"
     title="Terminal Info"
-    [(visible)]="popupTerminalVisible">
+    [(visible)]="popupTerminalVisible"
+    
+    >
   
 
     
@@ -232,6 +245,7 @@
         
     
 </dx-popup>
+
   
   
   

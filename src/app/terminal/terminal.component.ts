@@ -27,9 +27,14 @@ public total: number;
 public totalRecords: number
   public current:number = 1;
   public perPage:number = 10;
+  hasFilter:any=true;
+  hasAdd:any=true;
+  hasRefresh:any=true;
+
+
   special:string="Special"
   currentTerminal: any;
-  popupTerminalVisible: boolean;
+  popupTerminalVisible: boolean=false;
   isUpdate: boolean=false;
   refreshMode:string;
   filterState: boolean = false;
@@ -62,10 +67,10 @@ typeTerminal = [
   {Id: -1, Name: "(All)"},
   {Id: 0, Name: "Standard"},
   {Id: 1, Name: "Special"}]
-  dataSearchs:any = [ {key: "TerminalId", label: "Terminal Id", value: "", type: "contains"},{key: "EzyCode",label:"EzyCode", value: "",type: "contains"},{key: "Name",label:"Name", value: "",type: "contains"},{key: "Description",label:"Description", value: "",type: "contains"}, {key: "IsOnline", value: "", type:"=",valueSelect:[{Id:'-1', Name:"(All)"},{Id:'0', Name:"Unknown"},{Id:'1',Name:"Online"}]},{key: "Status", value: "", type:"=", valueSelect:[{Id:'-1',Name:"(All)"},{Id:'0',Name:"Disabled"},{Id:'1', Name:"Active"}]},{key: "Type", value: "", type:"=",valueSelect:[{Id: '-1', Name: "(All)"},{Id: '0', Name: "Standard"},{Id: '1', Name: "Special"}]}]
-  dataFilter:any = [ {key: "Terminal ID", value: ""},{key: "Ezy Code", value: ""},{key: "Name", value: ""},{key: "Description", value: ""}]
-  dataSelect: any=[{key: "IsOnline", value: "-1"},{key: "Status", value: "-1"},{key: "Type", value: "-1"},]
-  dataSelectFilter: any=[{key: "IsOnline", value: "-1"},{key: "Status", value: "-1"},{key: "Type", value: "-1"},]
+  dataSearchs:any = [ {key: "TerminalId", label: "Terminal Id", value: "", type: "contains"},{key: "EzyCode",label:"EzyCode", value: "",type: "contains"},{key: "Name",label:"Name", value: "",type: "contains"},{key: "Description",label:"Description", value: "",type: "contains"}, {key: "IsOnline", label:"Online Status",value: "", type:"=",valueSelect:[{Id:'-1', Name:"(All)"},{Id:'0', Name:"Unknown"},{Id:'1',Name:"Online"}]},{key: "Status",label:"Status", value: "", type:"=", valueSelect:[{Id:'-1',Name:"(All)"},{Id:'0',Name:"Disabled"},{Id:'1', Name:"Active"}]},{key: "Type",label:"Type", value: "", type:"=",valueSelect:[{Id: '-1', Name: "(All)"},{Id: '0', Name: "Standard"},{Id: '1', Name: "Special"}]}]
+  
+  
+ 
 
 
   // }
@@ -88,7 +93,7 @@ typeTerminal = [
     constructor(private accountService: UserService, private terS: TerminalService,private router: Router, private activatedRoute: ActivatedRoute) {
        
           
-        this.edit=this.edit.bind(this);
+        this.editProcess=this.editProcess.bind(this);
 
     }
     ngOnInit():void{
@@ -132,7 +137,16 @@ typeTerminal = [
       this.popupTerminalVisible = true;
     
     }
-    edit(e:any){
+    Refresh(){
+      
+      window.location.reload()
+    }
+
+
+    Export(){
+      return;
+    }
+    editProcess(e){
       this.popupTerminalVisible = true;
 
       this.currentTerminal=e.row.data;

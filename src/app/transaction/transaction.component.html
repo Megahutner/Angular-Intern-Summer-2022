@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="column">
       <nav aria-label="pagination">
@@ -70,14 +71,17 @@
           
         </th>
       </table>    -->
-
+<div id="filter" class="collapse">
        <filter-component
       
       [dataSearchs]="this.dataSearchs"
       (valueSearchChanges)="filter()"
       
-      ></filter-component> 
+      ></filter-component> </div>
      
+      <buttongroup-component
+      (Refresh)="Refresh()"
+    ></buttongroup-component>
   <dx-data-grid
             #grid 
             id="grid-container"
@@ -90,7 +94,6 @@
             (onRowUpdated)="onRowUpdated($event)"
             (onRowRemoved)="onRowRemoved($event)"
             (onRowInserted)="onRowInserted($event)"
-            [focusedRowEnabled]="true"
             [hoverStateEnabled]="true"
             (onRowClick)="onRowClick($event)"
             >

@@ -1,173 +1,81 @@
-<!-- <table *ngIf="this.option===1" style="width:1655px">
-    <th  class="th1" style="width:36.85%;border: 1px solid #cec9c9;border-left: none;">
+    <!--Contains Filter-->
+
+    
+    
+    <div *ngFor="let dataSearch of dataSearchs">
+    <div class="col-xs-3" *ngIf="dataSearch.type=='contains'">
       
-    </th>
-   
-    <th style="width:10.29%;	border: 1px solid #cec9c9;
-    " class="th1">              
-      
-        <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[0].key}}" (keyup)="valueSearchTrChange($event)" 
-        matInput ></div>
        
-      
-    
-      
-    </th>
-    <th style="width:7.24% ;	border: 1px solid #cec9c9;
-    " class="th1">            <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" placeholder="{{dataSearchsTrans[1].key}}"
-        matInput (keyup)="valueSearchTrChange($event)"></div>
-
-      
-    </th>
-    <th style="width:10.25%;	border: 1px solid #cec9c9;
-    "class="th1">            <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[2].key}}"
-        matInput (keyup)="valueSearchTrChange($event)" ></div>
-
-      
-    </th>
-    <th style="width:6.1%;	border: 1px solid #cec9c9;
-    " class="th1">            <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  placeholder="{{dataSearchsTrans[3].key}}"
-        matInput (keyup)="valueSearchTrChange($event)"></div>
-
-      
-    </th>
-    <th style="width:6%;	border: 1px solid #cec9c9;
-    " class="th1">            <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[4].key}}"
-        matInput (keyup)="valueSearchTrChange($event)"></div>
-
-      
-    </th>
-    <th style="width:6.05%;	border: 1px solid #cec9c9;
-    "class="th1">             <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchsTrans[5].key}}"
-        matInput (keyup)="valueSearchTrChange($event)"></div>
-
-      
-    </th>
-    <th [width]="100" class="th1" style="border: 1px solid #cec9c9;;border-right: none;">
-      <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"placeholder="{{dataSearchsTrans[6].key}}"
-        matInput (keyup)="valueSearchTrChange($event)"></div>
-      
-    </th>
-  </table>  
-
-
-  <table *ngIf="this.option===2" style="width:1655px">
-    <th  class="th1" style="width:6.1%;border: 1px solid #cec9c9;border-left: none;">
-      
-    </th>
-    <th style="width: 12.1%;	border: 1px solid #cec9c9;
-    " class="th1">              
-      
-        <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[0].key}}"  (keyup)="valueSearchTChange($event)"
-        matInput ></div>
-       
-      
-    
-      
-    </th>
-    <th style="width:9.05%;	border: 1px solid #cec9c9;
-    " class="th1">              
-      
-        <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[1].key}}" (keyup)="valueSearchTChange($event)"
-        matInput ></div>
-       
-      
-    
-      
-    </th>
-    <th style="width:12.1%;	border: 1px solid #cec9c9;
-    " class="th1">              
-      
-        <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[2].key}}" (keyup)="valueSearchTChange($event)"
-        matInput ></div>
-       
-      
-    
-      
-    </th>
-    <th style="width:12.1%;	border: 1px solid #cec9c9;
-    " class="th1">              
-      
-        <div style="width:100%">
-        <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-        <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" placeholder="{{dataSearchs[3].key}}" (keyup)="valueSearchTChange($event)"
-        matInput ></div>
-       
-      
-    
-      
-    </th>
-    <th  class="th1" style="width:9.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select  style="width:100% ;position: relative;border-color: #fff;outline:0;cursor: pointer;"  name="IsOnline" (change)="filterSelect($event)" >
-        <option value ="" selected="selected" hidden="hidden">(All)</option>
-          <option *ngFor="let oStatus of onlineStatus" [value]="oStatus.ID" >
-          {{ oStatus.Name }}
-        </option>
-          </select>
-    </th>
-    <th  class="th1" style="width:6.05%;border: 1px solid #cec9c9;border-left: none;">
-        <select style="width:100%;position: relative;border-color: #fff;outline:0;cursor: pointer; "  name="Type" (change)="filterSelect($event)">
-          <option value ="" selected="selected" hidden="hidden">(All)</option>
-          <option *ngFor="let terminal of typeTerminal" [value]="terminal.Id">
-          {{ terminal.Name }}
-        </option>
-          </select>
-    </th>
-    
-    
-   
-    
-  </table>   -->
-  
-
-<div class="col-xs-3" *ngFor="let dataSearch of dataSearchs">
-  
-   
-    <span *ngIf="dataSearch.type=='contains'">
+        <span *ngIf="dataSearch.type=='contains'">
+          <!-- <mat-form-field style ="margin-bottom:10px;appearance: fill;background-color:#fff;
+          height:35px;width: 100%;font-size:13px">
+          <mat-label>{{dataSearch.label}}</mat-label>
+          
+          <input  [(ngModel)]="dataSearch.value"  (keyup)="valueSearchChange($event)"
+        matInput >
+        <button style="background-color:#fff;border:none" *ngIf="dataSearch.value" matSuffix (click)="dataSearch.value=''" (click)="valueSearchChange($event)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field> 
+      <mat-label>{{dataSearch.label}}</mat-label> -->
+      <div class="dx-field">
      
-      <input style ="margin-top:10px;margin-bottom:10px; border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;height:35px;width: 100%;font-size:13px" [(ngModel)]="dataSearch.value" placeholder="{{dataSearch.label}}" (keyup)="valueSearchChange($event)"
-    matInput ></span>
+          <dx-text-box style="width:100%;height:30px" placeholder="{{dataSearch.label}}" [(ngModel)]="dataSearch.value"  valueChangeEvent="keyup" (onValueChanged)="valueSearchChange($event)" [showClearButton]="true"></dx-text-box>
+        
+      </div>
+    </span>
+    </div>
+        </div>
 
+
+
+        <!-- = Filter-->
+
+<div *ngFor="let dataSearch of dataSearchs" >
+    
+  <div class="col-xs-4" *ngIf="dataSearch.type=='='">
     <span *ngIf="dataSearch.type=='='">
-<select style="margin-top:10px;margin-bottom:10px" [(ngModel)]="dataSearch.value" (change)="valueSearchChange($event)" class="form-control">
+      <mat-label>{{dataSearch.label}}</mat-label>
+      <select style="appearance: none;margin-bottom:10px" [(ngModel)]="dataSearch.value" (change)="valueSearchChange($event)" class="form-control">
   <option value ="" selected="selected" hidden="hidden">(All)</option>
   <option *ngFor="let sData of dataSearch.valueSelect" [ngValue]="sData.Id">
   {{ sData.Name }}
 </option>
 </select>
 
-      </span>
 
-    
-    <!-- <div *ngif="dataSearch.type=='select'">
-      <select style="width:100%;border-color: #fff ;outline:0;cursor: pointer;" class="form-control" name="Status"  (change)="filterSelect($event)" >
-        <option value ="" selected="selected" hidden="hidden">(All)</option>
-        <option *ngFor="let sData of dataSearch.valueSelect" [value]="sData.Id">
-        {{ sData.Name }}
-      </option>
-        </select>
-    </div> -->
+      </span>
 </div>
+    
+
+</div>
+
+
+
+
+
+<!--Date Filter-->
+<div *ngFor="let dataSearch of dataSearchs">
+
+  <div class="col-xs-4"  *ngIf="dataSearch.type == '<=' || dataSearch.type == '>='">
   
+
+  <div class="dx-field">
+  
+    <div class="dx-field-value" style="width:200px;margin-right: 322px;">
+      
+      <dx-date-box  style="height:30px" placeholder="{{dataSearch.label}}" [(ngModel)]="dataSearch.value" [showClearButton]="true" (onValueChanged)="valueSearchChange($event)">        
+        <dxi-button
+        name="type"
+        location="before"
+        [options]="typeButton"
+       
+      ></dxi-button>
+      <dxi-button name="dropDown"></dxi-button></dx-date-box>
+    </div>
+  </div>
+  
+  
+</div>
+</div>
+

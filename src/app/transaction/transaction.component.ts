@@ -21,9 +21,11 @@ import { UserService } from '../_services/user.service';
 export class TransactionComponent implements OnInit {
     @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
     public total: number;
-    public perPage:number = 15;
+    public perPage:number = 10;
     public current:number = 1;
-    dataSearchs: any=[{key: "TranNo",label:"Transaction Number", value: "",type:"contains"},{key: "RequestType",label:"Request Type", value: "",type:"contains"},{key: "RequestRefNo",label:"Request Ref No", value: "",type:"contains"},{key: "CreateBy",label:"Created By", value: "",type:"contains"},{key: "Polyclinic",label:"Polyclinic", value: "",type:"contains"},{key: "EndBy",label:"End By", value: "",type:"contains"},{key: "EndedReason",label:"End Reason", value: "",type:"contains"},]
+    dataSearchs: any=[{key: "TranNo",label:"Transaction Number", value: "",type:"contains"},{key: "RequestType",label:"Request Type", value: "",type:"contains"},{key: "RequestRefNo",label:"Request Ref Number", value: "",type:"contains"},{key: "CreateBy",label:"Created By", value: "",type:"contains"},{key: "Polyclinic",label:"Polyclinic", value: "",type:"contains"},{key: "EndBy",label:"End By", value: "",type:"contains"},{key: "EndedReason",label:"End Reason", value: "",type:"contains"},
+    //{key: "CreateDate",label:"Create Date", value: "",type:"",typeF:[{typeValue:"<="},{typeValue:">="}]},{key: "EndDate",label:"End Date", value: "",type:"",typeF:[{typeValue:"<="},{typeValue:">="}]},
+    {key: "TranDateTime",label:"Tran.Date Time", value: "",type:"<=",typeF:[{typeValue:"<="},{typeValue:">="}]}]
     //dataFilter: any=[{key: "Transaction Number", value: ""},{key: "Request Type", value: ""},{key: "Request Ref Number", value: ""},{key: "Created By", value: ""},{key: "Polyclinic", value: ""},{key: "End By", value: ""},{key: "Ended Reason", value: ""}]
     filterUrl=''
     filterState: boolean = false;
@@ -40,6 +42,8 @@ export class TransactionComponent implements OnInit {
     url6='';
     url7='';
 
+    hasFilter:boolean=true;
+  hasRefresh:boolean=true;
   dataSource: any = {};
     showX: boolean;
     user: User;
@@ -95,6 +99,9 @@ export class TransactionComponent implements OnInit {
                       this.transactions = trans.data.transaction })
           
 
+    }
+    Refresh(){
+      window.location.reload()
     }
     public onGoTo(page:number): void{
       this.current = page
@@ -192,7 +199,7 @@ console.log(this.dataSearchs);
 
       this.requestUrl=initialUrl
       this.dataSearchs.forEach(element => {
-        if(element.value!='' &&element.value!='-1' ){
+        if(element.value!='' &&element.value!='-1'){
           this.url1= ',"or",["' + element.key + '","'+ element.type +'","'+element.value+'"]'
           filterUrl= filterUrl + this.url1
         }

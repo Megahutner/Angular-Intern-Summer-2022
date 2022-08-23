@@ -1,0 +1,9 @@
+<div style="position:relative">
+    <dx-button style="height:40px;width:40px;z-index: 2;" icon="filter" data-toggle="collapse" data-target="#filter"><mat-icon>search</mat-icon></dx-button>
+  
+  
+  <dx-button  style="height:40px;width:40px;float:right" (onClick)="Refreshs()"><mat-icon>refresh</mat-icon></dx-button>
+  <dx-button  style="height:40px;width:40px;z-index: 2;float:right" icon="export"></dx-button>
+  <dx-button  *ngIf="hasAdd" style="height:40px;width:40px;z-index: 2;float:right" icon="plus" (onClick)="Adds()"></dx-button>
+  
+</div>

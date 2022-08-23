@@ -14,6 +14,8 @@ import { TerminalComponent } from './terminal/terminal.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule} from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -33,24 +35,26 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './component/alert.component';
 import { HomeComponent } from './home';
 import { AuthInterceptor } from './_helpers/auth-interceptor';
-import { DxDataGridModule,DxScrollViewModule ,DxNumberBoxModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule } from 'devextreme-angular';
+import { DxDataGridModule,DxScrollViewModule ,DxNumberBoxModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,DxDateBoxModule,DxSwitchModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { PagingComponent } from './paging/paging.component';
 import { DxResponsiveBoxModule } from 'devextreme-angular';
 import { DxTextBoxModule } from 'devextreme-angular';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 import { FilterComponent } from './filter/filter.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonGroupComponent } from './buttongroup/buttongroup.component';
 
 @NgModule({
     imports: [
         BrowserModule,
-        ReactiveFormsModule,FormsModule,
+        ReactiveFormsModule,FormsModule,BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule,DxNumberBoxModule,DxScrollViewModule , DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,
+        AppRoutingModule,DxNumberBoxModule,DxScrollViewModule , DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule,DxDateBoxModule,DxSwitchModule,
         MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatRippleModule,
+    MatRippleModule,MatFormFieldModule,
     MatTableModule,
     MatIconModule,
     ReactiveFormsModule,
@@ -66,11 +70,12 @@ import { FilterComponent } from './filter/filter.component';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent,TransactionDetailsComponent,FilterComponent
+        HomeComponent,TerminalComponent,TransactionComponent,PagingComponent,TransactionDetailsComponent,FilterComponent,ButtonGroupComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
 
         // provider used to create fake backend
       
