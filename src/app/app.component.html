@@ -5,14 +5,14 @@
   </ul>
 <!-- main app container -->
 <div *ngIf="user" class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%">
-  <h3 class="w3-bar-item">Dashboard</h3>
-  <p [routerLink]="['/']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">home</mat-icon>       Home</p>
+  
+  <p [routerLink]="['/']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">pie_chart</mat-icon>       Dashboard</p>
   <p [routerLink]="['terminal']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">monitor</mat-icon>      Terminal Info</p>
     <p [routerLink]="['transaction']" class="w3-bar-item w3-button"><mat-icon style="margin-bottom: -5px">attach_money</mat-icon>      Transaction Info</p>  
 </div>
 
 <!-- Page Content -->
-<div style="margin-left:11%"><router-outlet></router-outlet></div>
+<div style="margin-left:11%;"><router-outlet></router-outlet></div>
 
 
 

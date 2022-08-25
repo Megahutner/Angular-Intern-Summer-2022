@@ -44,6 +44,11 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 import { FilterComponent } from './filter/filter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonGroupComponent } from './buttongroup/buttongroup.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DxPieChartModule } from 'devextreme-angular';
+import { DxChartModule } from 'devextreme-angular';
+
+
 
 @NgModule({
     imports: [
@@ -54,7 +59,7 @@ import { ButtonGroupComponent } from './buttongroup/buttongroup.component';
         MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatRippleModule,MatFormFieldModule,
+    MatRippleModule,MatFormFieldModule,DxPieChartModule,
     MatTableModule,
     MatIconModule,
     ReactiveFormsModule,
@@ -65,7 +70,7 @@ import { ButtonGroupComponent } from './buttongroup/buttongroup.component';
     MatNativeDateModule,
     MatTooltipModule,
     MatSelectModule,
-    MatToolbarModule,MatPaginatorModule,MatSidenavModule,CommonModule,DxResponsiveBoxModule,DxTextBoxModule
+    MatToolbarModule,MatPaginatorModule,MatSidenavModule,CommonModule,DxResponsiveBoxModule,DxTextBoxModule,FontAwesomeModule,DxChartModule
     ],
     declarations: [
         AppComponent,

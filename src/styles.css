@@ -1,3 +1,8 @@
+
+ ::ng-deep #gridpreview {
+	height: 300px;
+  }
+  ​
 ::ng-deep #grid {
     height: 440px;
   }
@@ -172,6 +177,7 @@ td {
  width: 170%;
 }
 ul {
+	opacity: .8;
 	position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -246,13 +252,14 @@ color:black }
   
   .row {
 	margin-left:-5px;
-	margin-right:-5px;
+	margin-right:-5px
   }
 	
   .column {
+margin-top: 10px;
 	float: left;
 	width: 99%;
-	height: 85%;
+	height: auto;
 	padding: 5px;
 	display: flex;
 	flex-direction: column;
@@ -306,4 +313,113 @@ color:black }
 
   ::ng-deep .mat-form-field-underline {
     display: none;
+}
+
+
+/* .search.collapsible{
+	opacity:1 ;
+	transition: opacity linear 1s, width linear 1s;
+}
+
+.search.collapsible.collapsed{
+	width:0;
+	opacity: 0;
+}
+
+.search.collapsible.sub-section{
+	padding: 10px;
+	border-width: 2px;
+	transition: padding linear 1s,border-width linear 1s;
+}
+
+.search.collapsible.collapsed .sub-section{
+	padding: 10px 0;
+	border-width: 2px 0;
+} */
+.test{
+	transition: all linear 0.5s;
+	height:300px
+}
+.ng-hide{
+	height:0;
+}
+
+div.test:hover{
+	opacity: 1;
+}
+div .icon{
+	position: absolute;
+  top: 20px;
+  right: 30;
+  opacity: 0.3;
+  transition: transform .5s;
+}
+div:hover >.icon{
+	transform:scale(1.1);
+	opacity:0.5
+}
+
+div .icon1{
+	position: absolute;
+  top: 110px;
+  right: 1200;
+  opacity: 0.5;
+}
+div .icon2{
+	position: absolute;
+  top: 110px;
+  right: 750;
+  opacity: 0.5;
+}
+div .icon3{
+	position: absolute;
+  top: 110px;
+  right: 150;
+  opacity: 0.5;
+}
+
+div .iconspecial{
+	position: absolute;
+  top: 20px;
+  right: 650;
+  opacity: 0.5;
+}
+
+.topButton{
+    position: absolute;
+    top:7px;
+    right:10px;
+	height:40px;width:40px;
+}
+
+
+div .parcel1{
+	position: absolute;
+  top: 100px;
+  right: 1350;
+}
+
+div .parcel2{
+	position: absolute;
+  top: 100px;
+  right: 900;
+}
+
+div .parcel3{
+	position: absolute;
+  top: 100px;
+  right: 300;
+}
+
+.icon-display {
+	transform: scale(6);
+ }
+
+.test{
+	background-color: #999b18;
+}
+
+#search{
+	transition: transform .5s;
+
 }

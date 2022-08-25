@@ -13,7 +13,7 @@ export class ButtonGroupComponent implements OnInit {
 
 
  @Input() hasAdd:any
-  
+  @Input() hasFilter:any
 
 
   

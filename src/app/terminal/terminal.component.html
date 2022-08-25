@@ -16,7 +16,7 @@
            <button mat-raised-button color="primary"><mat-icon>note_add</mat-icon></button> 
           </dx-button></li>-->
         </ul></nav>  
-<div id="filter" class="collapse">
+<div id="search" class="collapse" style="transition: all linear 0.5s">
           <filter-component 
           [dataSearchs]="this.dataSearchs"
         
@@ -25,11 +25,11 @@
       ></filter-component>
     </div>
       
-      
 
 
     <buttongroup-component
     [hasAdd]="hasAdd"
+    [hasFilter]="hasFilter"
     (Add)="Add()"
     (Refresh)="Refresh()"
     ></buttongroup-component>
@@ -44,6 +44,8 @@
             [columnAutoWidth]="true"
             style="width:100%"
             [showColumnLines]="true"
+            [rowAlternationEnabled]="true"
+
             >
             
             <dxo-editing  

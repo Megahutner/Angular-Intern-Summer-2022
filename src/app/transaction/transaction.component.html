@@ -71,7 +71,7 @@
           
         </th>
       </table>    -->
-<div id="filter" class="collapse">
+<div id="search" class="collapse" style="transition: all linear 0.5s">
        <filter-component
       
       [dataSearchs]="this.dataSearchs"
@@ -80,6 +80,7 @@
       ></filter-component> </div>
      
       <buttongroup-component
+      [hasFilter]="hasFilter"
       (Refresh)="Refresh()"
     ></buttongroup-component>
   <dx-data-grid
@@ -96,6 +97,8 @@
             (onRowInserted)="onRowInserted($event)"
             [hoverStateEnabled]="true"
             (onRowClick)="onRowClick($event)"
+            [rowAlternationEnabled]="true"
+
             >
             <!-- <dxo-filter-row
     [visible]="showFilterRow"
