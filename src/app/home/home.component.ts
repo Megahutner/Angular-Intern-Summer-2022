@@ -132,6 +132,9 @@ export class HomeComponent implements OnInit {
 
       
    }
+   goToTerminal(){
+    this.router.navigateByUrl('terminal')
+   }
     
     
 }

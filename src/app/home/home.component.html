@@ -1,12 +1,12 @@
 
-
+ <nav>
+  <ul class="ul1" >
+      
+    <li style="float:left"><h2>Dashboard</h2></li>
+    </ul></nav> 
 <div class="column">
     
-    <nav>
-        <ul class="ul1" >
-            
-          <li style="float:left"><h2>Dashboard</h2></li>
-          </ul></nav> 
+   
           
     <div class="col-md-12" style="background-color:white;border-top-style:solid;border-top-color:  rgb(0, 255, 213);">
         <dx-button class="topButton" icon="refresh"></dx-button>
@@ -25,7 +25,7 @@
       <i class="fas fa-building fa-6x"></i>          </div>
   </div>
 </div>
-<div class="col-md-3">
+<div class="col-md-3" (click)="goToTerminal()">
   <div  style="background-color:rgb(0, 225, 255);margin-top: 10px;margin-bottom: 10px;height:100px">
     <div style="color: white">
       <span style="display: inline-block;font-size: 40px;width: 15%;text-align: end;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;{{terminalInfo.TotalTerminal}}</span><br>
@@ -289,7 +289,8 @@
      
     
     <dx-data-grid
-    id="gridpreview"
+    #grid 
+    id="grid-container"
             [dataSource]="transactionInfo"
             keyExpr="Id"
             [showBorders]="true"
@@ -300,7 +301,14 @@
             
             >
             <dxi-column alignment="left"  dataField ="CreateDate" caption = "Created Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "></dxi-column>
-            <dxi-column alignment="left"   dataField ="TranNo" caption = "Transaction No." ></dxi-column>
+            <dxi-column alignment="left"   dataField ="TranNo" caption = "Transaction No." cellTemplate="ID">
+              <div *dxTemplate="let data of 'ID' ">
+
+                <a [routerLink]="['/transaction/transaction-details']" [queryParams]="{id:data.data.Id}">{{data.data.TranNo}}</a>
+              </div>
+
+
+            </dxi-column>
             <dxi-column alignment="left"  dataField ="RequestRefNo" caption = "Request Ref No." ></dxi-column>
             <dxi-column alignment="left"   dataField ="RequestType" caption = "Request Type" ></dxi-column>
             <dxi-column alignment="left"   dataField ="TranDateTime" caption = "Tran.Date Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "></dxi-column>

@@ -1,0 +1,184 @@
+<nav>
+  <ul class="ul1" >
+      
+    <li style="float:left"><h2>Transaction {{transactionInfo.TranNo}} Detail</h2></li>
+    </ul></nav> 
+ 
+ <div style="text-align: left;
+    background-color: #fff;">
+    <div class="col-md-12" style="font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
+      <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">GENERAL INFORMATION</div>
+    <div class="box-body no-padding" style="border: 1px solid #e6e2e2;margin-bottom: 20px;" *ngIf="transactionInfo">
+      
+      <table class="table">
+        <tbody>
+          <tr >
+            <td style="width:20%">Transaction No.</td>
+            <td>{{transactionInfo.TranNo || '-'}}</td>
+            <td style="width:20%">Created Time</td>
+            <td>{{transactionInfo.CreateDate | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Polyclinic</td>
+            <td>{{transactionInfo.Polyclinic || '-'}}</td>
+            <td>Created By</td>
+            <td>{{transactionInfo.CreateBy || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Request Ref No.</td>
+            <td>{{transactionInfo.RequestRefNo || '-'}}</td>
+            <td>Tran. Date Time</td>
+            <td>{{transactionInfo.TranDateTime | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+          
+            <td>Ended By</td>
+            <td>{{transactionInfo.EndBy || '-'}}</td>
+            <td>Ended Time</td>
+            <td>{{transactionInfo.EndDate | date:'medium' || '-'}}</td>
+          </tr>
+          <tr >
+            <td>Transaction Status</td>
+            <td>{{getTransactionStatus(transactionInfo.Status)}}</td>
+            <td>Ended/Failed Reason</td>
+            <td>{{transactionInfo.EndedReason || '-'}}</td>
+          </tr>
+          
+      
+        </tbody>
+      </table>
+    </div> 
+  </div>
+  <div class="col-md-12" style="margin-top:40px;font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
+    <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">
+TRANSACTION LOGS    </div>
+
+<div style="margin-bottom:20px;padding:0px">
+    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="transLogs"
+    keyExpr="TimeLog"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    [rowAlternationEnabled]="true"
+
+    [height]="80"
+    >
+    
+    <dxi-column alignment="left"  dataField ="TimeLog" caption = "TimeLog" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="From" caption = "From">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Action" caption = "Action">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Content" caption = "Content">
+            
+    </dxi-column>
+  
+  
+  
+  
+  </dx-data-grid>
+  </div>
+  </div>
+  
+
+  <div class="col-md-12" style="margin-top:40px;font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
+    <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">
+      ITEMS 
+    </div>
+    <div style="margin-bottom:20px">    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="transDetails"
+    keyExpr="BinCode"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    [height]="80"
+    >
+    <dxi-column alignment="left"  dataField ="BinCode" caption = "Bin Code">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="ItemCode" caption = "Item Code">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Description" caption = "Description">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Qty" caption = "Quantity">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Status" caption = "Status">
+      <dxo-lookup [dataSource]="statusData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Uom" caption = "UOM">
+            
+    </dxi-column>
+  
+  
+  
+  
+  
+  </dx-data-grid>
+    </div>
+  </div>
+ 
+
+  <div class="col-md-12" style="margin-top:40px;font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
+    <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">
+      PAYMENT 
+    </div>
+    <div style="margin-bottom:20px">
+    <dx-data-grid
+    #grid 
+    id="grid-container"
+    [dataSource]="payment"
+    keyExpr="CreateTime"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [showColumnLines]="true"
+    [height]="80"  
+    >
+    
+    <dxi-column alignment="left"  dataField ="PaymentId" caption = "Payment ID">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Description" caption = "Description">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="CreateTime" caption = "Created Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="SuccessTime" caption = "Success Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss ">
+            
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="PaymentType" caption = "Payment Type">
+      <dxo-lookup [dataSource]="PayType" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column alignment="left"  dataField ="Status" caption = "Status">
+      <dxo-lookup [dataSource]="statuspayment" displayExpr="name" valueExpr="id"></dxo-lookup>
+            
+    </dxi-column>
+    <dxo-scrolling mode="virtual" columnRenderingMode="virtual"></dxo-scrolling>
+  
+  
+  
+  </dx-data-grid>
+</div>
+  </div>
+      
+     
+  
+      
+                       
+          
+          
+  </div> 
+
+  

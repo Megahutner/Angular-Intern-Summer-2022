@@ -1,74 +1,9 @@
 
- ::ng-deep #gridpreview {
-	height: 300px;
-  }
-  ​
-::ng-deep #grid {
-    height: 440px;
-  }
+ .dxDataGrid {
+	height: calc(100vh - 140px);
+	}
   
-  ::ng-deep .options {
-    padding: 20px;
-    margin-top: 20px;
-    background-color: rgba(233, 218, 218, 0.15);
-  }
   
-  ::ng-deep .caption {
-    margin-bottom: 10px;
-    font-weight: 500;
-    font-size: 18px;
-  }
-  
-  ::ng-deep .option {
-    margin-bottom: 10px;
-  }
-  
-  ::ng-deep .option > span {
-    position: relative;
-    top: 2px;
-    margin-right: 10px;
-  }
-  
-  ::ng-deep .option > .dx-widget {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  
-  ::ng-deep #requests .caption {
-    float: left;
-    padding-top: 7px;
-  }
-  
-  ::ng-deep #requests > div {
-    padding-bottom: 5px;
-  }
-  
-  ::ng-deep #requests > div::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  ::ng-deep #requests #clear {
-    float: right;
-  }
-  
-  ::ng-deep #requests ul {
-    list-style: none;
-    max-height: 100px;
-    overflow: auto;
-    margin: 0;
-  }
-  
-  ::ng-deep #requests ul li {
-    padding: 7px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  ::ng-deep #requests ul li:last-child {
-    border-bottom: none;
-  }
-
 
 html,
 body {
@@ -279,6 +214,7 @@ margin-top: 10px;
 	border-spacing: 0;
 	
 	border: 1px rgb(0, 0, 0);
+	margin-bottom: 20px;
 	
   }
   
@@ -295,10 +231,12 @@ margin-top: 10px;
 	
   }
   
-  
+  tr{
+	background-color: white;
+  }
   
   tr:nth-child(even) {
-	background-color: #ffffff;
+	
   }
   :host {
 	flex-direction: column;
@@ -307,9 +245,7 @@ margin-top: 10px;
   .a{
 	margin-bottom: 10px;
   }
-  #gridContainer {
-	max-height: 1000px;
-  }
+ 
 
   ::ng-deep .mat-form-field-underline {
     display: none;
@@ -422,4 +358,8 @@ div .parcel3{
 #search{
 	transition: transform .5s;
 
+}
+
+#gridDetail{
+	height: calc(100vh - 140px);
 }

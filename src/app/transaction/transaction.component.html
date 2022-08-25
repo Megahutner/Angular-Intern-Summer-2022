@@ -1,76 +1,12 @@
 
 <div class="row">
-    <div class="column">
-      <nav aria-label="pagination">
-        <ul class="ul1" >
-            
-          <li style="float:left"><h2>Transaction Info</h2></li>
-          </ul></nav> 
-         <!-- <table>
-        <th  class="th1" style="width:36.85%;border: 1px solid #cec9c9;border-left: none;">
-          
-        </th>
-       
-        <th style="width:10.29%;	border: 1px solid #cec9c9;
-        " class="th1">              
-          
-            <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px"  (keyup)="filterTransN($event)" 
-            matInput ></div>
-           
-          
+  <nav>
+    <ul class="ul1" >
         
-          
-        </th>
-        <th style="width:7.24% ;	border: 1px solid #cec9c9;
-        " class="th1">            <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:12px" 
-            matInput (keyup)="filterRequestT($event)"></div>
-
-          
-        </th>
-        <th style="width:10.25%;	border: 1px solid #cec9c9;
-        "class="th1">            <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:85%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-            matInput (keyup)="filterRequestN($event)" ></div>
-
-          
-        </th>
-        <th style="width:6.1%;	border: 1px solid #cec9c9;
-        " class="th1">            <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-            matInput (keyup)="filterCreateB($event)"></div>
-
-          
-        </th>
-        <th style="width:6%;	border: 1px solid #cec9c9;
-        " class="th1">            <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-            matInput (keyup)="filterPolyclinic($event)"></div>
-
-          
-        </th>
-        <th style="width:6.05%;	border: 1px solid #cec9c9;
-        "class="th1">             <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:70%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-            matInput (keyup)="filterEndB($event)"></div>
-
-          
-        </th>
-        <th [width]="100" class="th1" style="border: 1px solid #cec9c9;;border-right: none;">
-          <div style="width:100%">
-            <span style="width: 10%" matPrefix> <mat-icon matSuffix>search</mat-icon></span>
-            <input style ="width:80%;background: rgba(0, 0, 0, 0);border: none;outline: none;font-size:13px" 
-            matInput (keyup)="filterEndR($event)"></div>
-          
-        </th>
-      </table>    -->
+      <li style="float:left"><h2>Transaction Info</h2></li>
+      </ul></nav> 
+    <div class="column">
+      
 <div id="search" class="collapse" style="transition: all linear 0.5s">
        <filter-component
       
@@ -303,7 +239,7 @@ TRANSACTION LOGS    </div>
     <div class="box-header with-border" style="font-size: 15px;">
       PAYMENT 
     </div>
-    
+    <div style="margin-bottom:20px">
     <dx-data-grid
     #grid 
     id="grid-container"
@@ -336,6 +272,7 @@ TRANSACTION LOGS    </div>
   
   
   </dx-data-grid>
+</div>
   </div>
       
      
