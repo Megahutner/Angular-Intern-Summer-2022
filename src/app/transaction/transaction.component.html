@@ -6,7 +6,6 @@
       <li style="float:left"><h2>Transaction Info</h2></li>
       </ul></nav> 
     <div class="column">
-      
 <div id="search" class="collapse" style="transition: all linear 0.5s">
        <filter-component
       
@@ -24,7 +23,7 @@
             id="grid-container"
             [dataSource]="transactions"
             keyExpr="Id"
-            [showBorders]="false"
+            [showBorders]="true"
             [columnAutoWidth]="false"
             style="width:100%"
             [showColumnLines]="true"
@@ -107,6 +106,7 @@
             (previous)="onPrevious($event)"
             (switchs)="switch($event)"
           ></paging-component> 
+          
 
           <dx-popup
           [dragEnabled]="true"
@@ -192,6 +192,7 @@ TRANSACTION LOGS    </div>
   
   </dx-data-grid>
   </div>
+  
 
   <div class="col-md-12" style="margin-top: 50px;">
     <div class="box-header with-border" style="font-size: 15px;">

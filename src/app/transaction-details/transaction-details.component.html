@@ -3,9 +3,13 @@
       
     <li style="float:left"><h2>Transaction {{transactionInfo.TranNo}} Detail</h2></li>
     </ul></nav> 
- 
+<div style="margin-right: 20px;">
+    <buttongroup-component></buttongroup-component><br>
+    <div>&nbsp;</div><br>
+    </div>
+
  <div style="text-align: left;
-    background-color: #fff;">
+    background-color: #fff;margin-right: 20px;">
     <div class="col-md-12" style="font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
       <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">GENERAL INFORMATION</div>
     <div class="box-body no-padding" style="border: 1px solid #e6e2e2;margin-bottom: 20px;" *ngIf="transactionInfo">
@@ -130,7 +134,7 @@ TRANSACTION LOGS    </div>
   </div>
  
 
-  <div class="col-md-12" style="margin-top:40px;font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
+  <div class="col-md-12" style="margin-top:40px;margin-bottom:-10px;font-size: 15px;background-color: white;border-top: #4e4a4a solid;">
     <div style="font-size:18px;color:#4e4a4a;height:40px;margin-top: 10px;">
       PAYMENT 
     </div>
@@ -172,6 +176,8 @@ TRANSACTION LOGS    </div>
   </dx-data-grid>
 </div>
   </div>
+
+  
       
      
   
@@ -180,5 +186,6 @@ TRANSACTION LOGS    </div>
           
           
   </div> 
+
 
   

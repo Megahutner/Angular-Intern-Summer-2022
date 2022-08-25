@@ -125,8 +125,8 @@
         <div style="background-color:rgb(190, 99, 218);margin-top: 10px;margin-bottom: 10px;height:100px" >
 
             <div style="color: white">
-                <span style="display: inline-block;font-size: 40px;width: 10%;text-align: end;font-weight: bold;">{{parcelInfo.Total}}</span><br>
-                <span style="display: inline-block;font-size: 18px;width: 12%;text-align: end;">Total Parcels</span> 
+                <span style="display: inline-block;font-size: 40px;width: 6%;text-align: end;font-weight: bold;">{{parcelInfo.Total}}</span><br>
+                <span style="font-size: 18px;;text-align: end;">&nbsp;&nbsp;&nbsp;Total Parcels</span> 
 </div>
 <div class="icon">
     <i class="fas fa-shipping-fast fa-6x"></i>         </div>
@@ -301,7 +301,7 @@
             
             >
             <dxi-column alignment="left"  dataField ="CreateDate" caption = "Created Date" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "></dxi-column>
-            <dxi-column alignment="left"   dataField ="TranNo" caption = "Transaction No." cellTemplate="ID">
+            <dxi-column alignment="center"   dataField ="TranNo" caption = "Transaction No." cellTemplate="ID">
               <div *dxTemplate="let data of 'ID' ">
 
                 <a [routerLink]="['/transaction/transaction-details']" [queryParams]="{id:data.data.Id}">{{data.data.TranNo}}</a>
@@ -309,7 +309,7 @@
 
 
             </dxi-column>
-            <dxi-column alignment="left"  dataField ="RequestRefNo" caption = "Request Ref No." ></dxi-column>
+            <dxi-column alignment="center"  dataField ="RequestRefNo" caption = "Request Ref No." ></dxi-column>
             <dxi-column alignment="left"   dataField ="RequestType" caption = "Request Type" ></dxi-column>
             <dxi-column alignment="left"   dataField ="TranDateTime" caption = "Tran.Date Time" dataType = 'datetime' format="yyyy-MM-dd HH:mm:ss "></dxi-column>
             <dxi-column alignment="left"   dataField ="CreateBy" caption = "Create By" ></dxi-column>
